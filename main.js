@@ -1,3 +1,8 @@
+/*
+** By Dave Amphlett
+**
+*/
+
 var serviceSpawner = require('service.spawner');
 var serviceForeman = require('service.foreman');
 
