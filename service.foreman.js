@@ -13,6 +13,8 @@ var serviceForeman = {
 
     run: function() {
         // console.log('Foreman ------------------------------------------------');
+        this.clearUpCreeperMemory();
+
         var status = this.getStatus();
         var creeps = Game.creeps;
 
@@ -59,6 +61,15 @@ var serviceForeman = {
         status.creeperCount = Object.keys(Game.creeps).length;
 
         return status;
+    },
+
+    clearUpCreeperMemory: function() {
+      for(var name in Memory.creeps) {
+        if (Game.creeps[name] == undefined) {
+          Memory.creeps[name] = undefined;
+        }
+
+      }
     }
 
 };
