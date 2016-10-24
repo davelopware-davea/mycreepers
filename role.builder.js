@@ -13,18 +13,30 @@ var roleBuilder = {
 	    }
 
 	    if(creep.memory.building) {
-            var repairTargets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: (structure) => structure.hits < (structure.hitsMax * 0.9)
+            var repairTarget = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                filter: (structure) => (structure.hits * 1.1) < structure.hitsMax
             });
-            if(repairTargets && repairTargets.length) {
-                if(creep.repair(repairTargets[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(repairTargets[0]);
+            if (repairTarget) {
+                console.log(creep.name+' repair '+repairTarget.pos);
+                if(creep.repair(repairTarget) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(repairTarget);
                 }
             } else {
-                var buildTargets = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
-                if(buildTargets && buildTargets.length) {
-                    if(creep.build(buildTargets[0]) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(buildTargets[0]);
+                var buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
+                    filter: (structure) => (structure.structure_type === STRUCTURE_EXTENSION)
+                });
+                if (buildTarget === null) {
+                    buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
+                        filter: (structure) => (structure.structure_type === STRUCTURE_ROAD)
+                    });
+                }
+                if (buildTarget === null) {
+                    buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES);
+                }
+                if (buildTarget) {
+                    console.log(creep.name+' build '+buildTarget.pos);
+                    if(creep.build(buildTarget) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(buildTarget);
                     }
                 }
             }
