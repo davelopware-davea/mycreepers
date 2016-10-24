@@ -8,8 +8,15 @@
  */
 
 var serviceForeman = {
-    targetCreeperCount: 4,
-    specialOpsMax: 0,
+    targetCreeperCount: function() {
+        var status = this.getStatus();
+        var neededRoles = this.determineNeededRoles(status);
+        var total = 0;
+        for (var role in neededRoles) {
+            total = total + neededRoles[role];
+        };
+        return total;
+    },
 
     run: function() {
         // console.log('Foreman ------------------------------------------------');
@@ -19,26 +26,24 @@ var serviceForeman = {
         var creeps = Game.creeps;
 
         var defaultRole = this.getDefaultRole(status);
+        var neededRoles = this.determineNeededRoles(status);
 
-        var specialOpsNeeded = status.creeperCount - (this.targetCreeperCount-this.specialOpsMax);
-
-        var specialOpsExisting = 0;
         for (var name in creeps) {
             var creep = creeps[name];
 
             var neededRole = defaultRole;
-
-            if (specialOpsExisting < specialOpsNeeded) {
-                neededRole = 'special';
+            for (var role in neededRoles) {
+                if (neededRoles[role] > 0) {
+                    neededRole = role;
+                    neededRoles[role] = neededRoles[role] - 1;
+                    break;
+                }
             }
 
             if (creep.memory.role != neededRole) {
+                console.log('Turning '+creep.name+' from '+creep.memory.role+' to '+neededRole);
                 creep.memory.role = neededRole;
                 creep.say('=' + defaultRole);
-            }
-
-            if (creep.memory.role == 'special') {
-                specialOpsExisting++;
             }
         }
 
@@ -50,6 +55,24 @@ var serviceForeman = {
         }
 
         return 'upgrader';
+    },
+    
+    determineNeededRoles: function(status) {
+        var needs = {};
+        
+        if (status.spawnerNeeds > 0) {
+            needs = {
+                'harvester': 3,
+                'builder': 1
+            };
+        } else {
+            needs = {
+                'upgrader': 3,
+                'builder': 1
+            };
+        }
+        
+        return needs;
     },
 
     getStatus: function() {
