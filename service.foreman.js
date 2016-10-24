@@ -57,6 +57,29 @@ var serviceForeman = {
         return 'upgrader';
     },
     
+    getSpawnedNeededRole: function() {
+        var status = this.getStatus();
+        var creeps = Game.creeps;
+
+        var defaultRole = this.getDefaultRole(status);
+        var neededRoles = this.determineNeededRoles(status);
+
+        for (var name in creeps) {
+            var creep = creeps[name];
+            var role = creep.memory.role;
+            if (neededRoles[role] && neededRoles[role] > 0) {
+                neededRoles[role] = neededRoles[role] - 1;
+            }
+        }
+        for (var role in neededRoles) {
+            if (neededRoles[role] > 0) {
+                return role;
+            }
+        }
+
+        return 'harvester';
+    },
+
     determineNeededRoles: function(status) {
         var needs = {};
         
@@ -74,7 +97,7 @@ var serviceForeman = {
         
         return needs;
     },
-
+    
     getStatus: function() {
         var status = {};
 
