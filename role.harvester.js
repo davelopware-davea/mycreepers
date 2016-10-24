@@ -1,3 +1,6 @@
+
+var helper = require('helper');
+
 var roleHarvester = {
 
     /** @param {Creep} creep **/
@@ -5,35 +8,7 @@ var roleHarvester = {
 	    if(creep.carry.energy < creep.carryCapacity) {
             var sources = creep.room.find(FIND_SOURCES);
             creep.say('harvesting');
-            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                // check if we're in a holding pattern
-                if (creep.memory.source_holding_pattern && creep.memory.source_holding_pattern > 0) {
-                    var holdingFlag = Game.flags['SourceHoldingPattern'];
-                    creep.moveTo(holdingFlag);
-                    creep.memory.source_holding_pattern = creep.memory.source_holding_pattern - 1;
-                    creep.memory.source_waiting_for = 0;
-                    creep.say('->hold_'+creep.memory.source_holding_pattern);
-                } else {
-                    // check if we're blocking the source
-                    creep.memory.source_holding_pattern = undefined;
-                    if (creep.pos.getRangeTo(sources[0]) < 4) {
-                        if (creep.memory.source_waiting_for) {
-                            creep.memory.source_waiting_for = creep.memory.source_waiting_for + 1;
-                        } else {
-                            creep.memory.source_waiting_for = 1;
-                        }
-                        creep.say('->src|'+creep.memory.source_waiting_for);
-                    }
-                    if (creep.memory.source_waiting_for > 10) {
-                        creep.memory.source_waiting_for = 0;
-                        creep.memory.source_holding_pattern = 20;
-                    } else {
-                        creep.memory.source_waiting_for = 0;
-                        creep.say('->source');
-                        creep.moveTo(sources[0]);
-                    }
-                }
-            }
+            helper.harvestSource(creep, sources[0]);
         }
         else {
             var targets = creep.room.find(FIND_MY_STRUCTURES, {
