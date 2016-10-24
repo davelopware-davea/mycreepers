@@ -3,6 +3,8 @@
 **
 */
 
+var helper = require('helper');
+
 var serviceSpawner = require('service.spawner');
 var serviceForeman = require('service.foreman');
 

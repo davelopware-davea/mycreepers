@@ -85,12 +85,12 @@ var serviceForeman = {
         
         if (status.spawnerNeeds > 0) {
             needs = {
-                'harvester': 3,
+                'harvester': 2,
                 'builder': 1
             };
         } else {
             needs = {
-                'upgrader': 3,
+                'upgrader': 2,
                 'builder': 1
             };
         }
