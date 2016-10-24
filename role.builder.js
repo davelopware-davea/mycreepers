@@ -22,12 +22,15 @@ var roleBuilder = {
                     creep.moveTo(repairTarget);
                 }
             } else {
-                var buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
-                    filter: (structure) => (structure.structureType === STRUCTURE_EXTENSION)
-                });
+                var buildTarget = null;
                 if (buildTarget === null) {
                     buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
                         filter: (structure) => (structure.structureType === STRUCTURE_ROAD)
+                    });
+                }
+                if (buildTarget === null) {
+                    buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
+                        filter: (structure) => (structure.structureType === STRUCTURE_EXTENSION)
                     });
                 }
                 if (buildTarget === null) {
