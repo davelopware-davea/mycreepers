@@ -102,7 +102,17 @@ var serviceForeman = {
         var status = {};
 
         var spawner = Game.spawns['Spawn1'];
-        status.spawnerNeeds = spawner.energyCapacity - spawner.energy;
+        var energyNeeders = spawner.room.find(FIND_MY_STRUCTURES, {
+            filter: (structure) => {
+                return (
+                    structure.structureType == STRUCTURE_EXTENSION ||
+                    structure.structureType == STRUCTURE_SPAWN ||
+                    structure.structureType == STRUCTURE_TOWER
+                ) && structure.energy < structure.energyCapacity;
+            }
+        });
+
+        status.spawnerNeeds = (energyNeeders !== null && energyNeeders.length > 0); //spawner.energyCapacity - spawner.energy;
 
         status.creeperCount = Object.keys(Game.creeps).length;
 
