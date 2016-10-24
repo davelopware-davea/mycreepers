@@ -23,11 +23,11 @@ var roleBuilder = {
                 }
             } else {
                 var buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
-                    filter: (structure) => (structure.structure_type === STRUCTURE_EXTENSION)
+                    filter: (structure) => (structure.structureType === STRUCTURE_EXTENSION)
                 });
                 if (buildTarget === null) {
                     buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
-                        filter: (structure) => (structure.structure_type === STRUCTURE_ROAD)
+                        filter: (structure) => (structure.structureType === STRUCTURE_ROAD)
                     });
                 }
                 if (buildTarget === null) {
