@@ -10,11 +10,9 @@
 var serviceForeman = require('service.foreman');
 
 var serviceSpawner = {
-    targetNumberOfCreeps: serviceForeman.targetCreeperCount,
-
     run: function() {
         // console.log('Spawner ------------------------------------------------');
-        if (Object.keys(Game.creeps).length < this.targetNumberOfCreeps) {
+        if (Object.keys(Game.creeps).length < serviceForeman.targetCreeperCount()) {
           this.spawnNewCreep();
         }
     },
@@ -22,7 +20,11 @@ var serviceSpawner = {
     spawnNewCreep: function() {
         console.log('spawning creeper');
         var spawn = Game.spawns['Spawn1'];
-        spawn.createCreep([MOVE,MOVE,WORK,CARRY]);
+        var role = serviceForeman.getSpawnedNeededRole();
+        var memory = {
+            'role': role
+        };
+        spawn.createCreep([MOVE,MOVE,WORK,CARRY], memory);
     }
 };
 
