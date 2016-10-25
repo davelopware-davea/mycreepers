@@ -90,12 +90,13 @@ var serviceForeman = {
             };
         } else if (status.buildingNeeded) {
             needs = {
-                'upgrader': 2,
-                'builder': 6
+                'upgrader': 4,
+                'builder': 4
             };
         } else {
             needs = {
-                'upgrader': 8
+                'upgrader': 6,
+                'builder': 2
             };
         }
 
