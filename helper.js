@@ -48,6 +48,9 @@ module.exports = {
                     creep.moveTo(source);
                 }
             }
+        } else {
+            creep.memory.source_waiting_for = undefined;
+            creep.memory.source_holding_pattern = undefined;
         }
     }
 
