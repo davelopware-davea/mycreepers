@@ -56,7 +56,7 @@ var serviceForeman = {
 
         return 'upgrader';
     },
-    
+
     getSpawnedNeededRole: function() {
         var status = this.getStatus();
         var creeps = Game.creeps;
@@ -82,22 +82,26 @@ var serviceForeman = {
 
     determineNeededRoles: function(status) {
         var needs = {};
-        
+
         if (status.spawnerNeeds > 0) {
             needs = {
                 'harvester': 6,
                 'builder': 2
             };
-        } else {
+        } else if (status.buildingNeeded) {
             needs = {
                 'upgrader': 2,
                 'builder': 6
             };
+        } else {
+            needs = {
+                'upgrader': 8
+            };
         }
-        
+
         return needs;
     },
-    
+
     getStatus: function() {
         var status = {};
 
@@ -113,6 +117,10 @@ var serviceForeman = {
         });
 
         status.spawnerNeeds = (energyNeeders !== null && energyNeeders.length > 0); //spawner.energyCapacity - spawner.energy;
+
+        var constructionSites = spawner.room.find(FIND_MY_CONSTRUCTION_SITES);
+
+        status.buildingNeeded = (constructionSites !== null && constructionSites.length > 0);
 
         status.creeperCount = Object.keys(Game.creeps).length;
 

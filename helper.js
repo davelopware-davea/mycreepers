@@ -30,7 +30,7 @@ module.exports = {
             } else {
                 // check if we're blocking the source
                 creep.memory.source_holding_pattern = undefined;
-                if (creep.pos.getRangeTo(sources[0]) < 4) {
+                if (creep.pos.getRangeTo(source) < 4) {
                     if (creep.memory.source_waiting_for) {
                         creep.memory.source_waiting_for = creep.memory.source_waiting_for + 1;
                     } else {
@@ -41,12 +41,11 @@ module.exports = {
                 }
                 if (creep.memory.source_waiting_for > 10) {
                     creep.memory.source_waiting_for = 0;
-                    creep.memory.source_holding_pattern = 20;
+                    creep.memory.source_holding_pattern = 10;
                     console.log(creep.name+' entering the holding pattern');
                 } else {
-                    creep.memory.source_waiting_for = 0;
                     creep.say('->source');
-                    creep.moveTo(sources[0]);
+                    creep.moveTo(source);
                 }
             }
         }
