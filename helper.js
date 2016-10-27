@@ -60,16 +60,27 @@ module.exports = {
             creep.memory.source_holding_pattern = undefined;
         }
     },
+    findMyClosestConstructable: function(pos, structType) {
+        var target = null;
+        if (structType) {
+            target = pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
+                    filter: (c) => ((c.structureType === structType))
+            });
+        } else {
+            target = pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+        }
+        return target;
+    },
     findMyClosestRepairable: function(pos, structType, hitsPercentage) {
         var target = null;
         if (structType) {
             target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
                     filter: (s) => ((s.structureType === structType) && ((s.hits * 100 / hitsPercentage) < s.hitsMax))
-        });
+            });
         } else {
             target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
                     filter: (s) => ((s.hits * 100 / hitsPercentage) < s.hitsMax)
-        });
+            });
         }
         return target;
     },
@@ -78,11 +89,11 @@ module.exports = {
         if (structType) {
             target = pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: (s) => ((s.structureType === structType) && (s.hits < hitsBelow))
-        });
+            });
         } else {
             target = pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: (s) => (s.hits < hitsBelow)
-        });
+            });
         }
         return target;
     }

@@ -7,6 +7,7 @@
  * mod.thing == 'a thing'; // true
  */
 
+var helper = require('helper');
 var roleBuilder = require('role.builder');
 
 var serviceForeman = {
@@ -85,7 +86,7 @@ var serviceForeman = {
     determineNeededRoles: function(status) {
         var needs = {};
 
-        if (status.spawnerNeeds > 0) {
+        if (status.energyNeeded > 0) {
             needs = {
                 'harvester': 5,
                 'builder': 1,
@@ -111,23 +112,106 @@ var serviceForeman = {
 
         var spawner = Game.spawns['Spawn1'];
         var energyNeeders = spawner.room.find(FIND_MY_STRUCTURES, {
-                    filter: (structure) => {
-                    return (
-                        structure.structureType == STRUCTURE_EXTENSION ||
-                structure.structureType == STRUCTURE_SPAWN ||
-                structure.structureType == STRUCTURE_TOWER
-            ) && structure.energy < structure.energyCapacity;
-    }
-    });
-        status.spawnerNeeds = (energyNeeders !== null && energyNeeders.length > 0); //spawner.energyCapacity - spawner.energy;
+            filter: (structure) => {
+                return (
+                    structure.structureType == STRUCTURE_EXTENSION ||
+                    structure.structureType == STRUCTURE_SPAWN ||
+                    structure.structureType == STRUCTURE_TOWER
+                ) && structure.energy < structure.energyCapacity;
+            }
+        });
+        status.energyNeeded = (energyNeeders !== null && energyNeeders.length > 0); //spawner.energyCapacity - spawner.energy;
 
-        var nextToRepair = roleBuilder.nextThingToRepair(spawner.pos, true);
+        var nextToRepair = this.nextThingToRepair(spawner.pos, true);
         var nextToBuild = roleBuilder.nextThingToBuild(spawner.pos);
         status.buildingNeeded = (nextToRepair !== null || nextToBuild !== null);
 
         status.creeperCount = Object.keys(Game.creeps).length;
 
         return status;
+    },
+
+    nextThingToRepair: function(pos, essentialOnly) {
+        if (essentialOnly === undefined) {
+            essentialOnly = false;
+        }
+        var target = null;
+
+        var targetsEssential = [
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_SPAWN, 100); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_TOWER, 100); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_RAMPART, 2); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_EXTENSION, 100); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_CONTROLLER, 100); }
+        ];
+        _.forEach(targetsEssential, function(finderFn) {
+            target = finderFn();
+            if (target) {
+                return false; // stop looping
+            }
+        });
+        if (target || essentialOnly) {
+            return target;
+        }
+
+        var targetsAdditional = [
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_RAMPART, 5); },
+            function() { return helper.findClosestRepairable(pos, STRUCTURE_ROAD, 5000); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_WALL, 5000); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_WALL, 10000); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_WALL, 20000); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_WALL, 40000); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_WALL, 50000); },
+        ];
+
+        _.forEach(targetsAdditional, function(finderFn) {
+            target = finderFn();
+            if (target) {
+                return false; // stop looping
+            }
+        });
+        if (target) {
+            return target;
+        }
+    },
+
+    nextThingToBuild: function(pos, essentialOnly) {
+        if (essentialOnly === undefined) {
+            essentialOnly = false;
+        }
+        var target = null;
+
+        var targetsEssential = [
+            function() { return helper.findMyClosestConstructable(pos, STRUCTURE_TOWER); },
+            function() { return helper.findMyClosestConstructable(pos, STRUCTURE_RAMPART); },
+            function() { return helper.findMyClosestConstructable(pos, STRUCTURE_WALL); },
+            function() { return helper.findMyClosestConstructable(pos, STRUCTURE_ROAD); }
+        ];
+        _.forEach(targetsEssential, function(finderFn) {
+            target = finderFn();
+            if (target) {
+                return false; // stop looping
+            }
+        });
+        if (target || essentialOnly) {
+            return target;
+        }
+
+        var targetsAdditional = [
+            function() { return helper.findMyClosestConstructable(pos, STRUCTURE_STORAGE); },
+            function() { return helper.findMyClosestConstructable(pos, STRUCTURE_CONTAINER); },
+            function() { return helper.findMyClosestConstructable(pos); }
+        ];
+        _.forEach(targetsAdditional, function(finderFn) {
+            target = finderFn();
+            if (target) {
+                return false; // stop looping
+            }
+        });
+        if (target || essentialOnly) {
+            return target;
+        }
+
     },
 
     clearUpCreeperMemory: function() {

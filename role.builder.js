@@ -1,5 +1,6 @@
 
 var helper = require('helper');
+var foreman = require('service.foreman');
 
 var roleBuilder = {
 
@@ -16,35 +17,23 @@ var roleBuilder = {
 	    }
 
 	    if(creep.memory.building) {
-            var repairTarget = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                filter: (structure) => (structure.hits * 1.1) < structure.hitsMax
-            });
+            var repairTarget = null;
+            repairTarget = foreman.nextThingToRepair(creep.pos, true);
             if (repairTarget) {
                 console.log(creep.name+' repair '+repairTarget.pos);
                 if(creep.repair(repairTarget) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(repairTarget);
                 }
-            } else {
-                var buildTarget = null;
-                if (buildTarget === null) {
-                    buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
-                        filter: (structure) => (structure.structureType === STRUCTURE_ROAD)
-                    });
+                return;
+            }
+            var buildTarget = null;
+            buildTarget = foreman.nextThingToBuild(creep.pos, true);
+            if (buildTarget) {
+                console.log(creep.name+' build '+buildTarget.pos);
+                if(creep.build(buildTarget) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(buildTarget);
                 }
-                if (buildTarget === null) {
-                    buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
-                        filter: (structure) => (structure.structureType === STRUCTURE_EXTENSION)
-                    });
-                }
-                if (buildTarget === null) {
-                    buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES);
-                }
-                if (buildTarget) {
-                    console.log(creep.name+' build '+buildTarget.pos);
-                    if(creep.build(buildTarget) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(buildTarget);
-                    }
-                }
+                return;
             }
 	    }
 	    else {
