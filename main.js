@@ -1,7 +1,7 @@
 /*
-** By Dave Amphlett
-**
-*/
+ ** By Dave Amphlett
+ **
+ */
 
 var helper = require('helper');
 
@@ -25,10 +25,16 @@ var roles = {
     'special': roleSpecial
 };
 
+var troleRepairer = require('trole.repairer');
+
+var troles = {
+    'repairerr': troleRepairer
+};
+
 module.exports.loop = function () {
     // console.log('Loop ===================================================');
 
-    // var tower = Game.getObjectById('e31263ea5e485b6b4569b161');
+    // var tower = Game.getObjectById('581209175e5464fb252c3435');
     // if(tower) {
     //     var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
     //         filter: (structure) => structure.hits < structure.hitsMax
@@ -46,6 +52,15 @@ module.exports.loop = function () {
     for(var serviceName in services) {
         var service = services[serviceName];
         service.run();
+    }
+
+    var myStructures = Game.structure;
+    for(var idx in myStructures) {
+        var struct = myStructures[idx];
+        if (struct.structureType === STRUCTURE_TOWER) {
+            var tower = struct;
+            troles['repairer'].run(towers);
+        }
     }
 
     for(var name in Game.creeps) {

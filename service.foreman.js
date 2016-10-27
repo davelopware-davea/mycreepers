@@ -7,6 +7,8 @@
  * mod.thing == 'a thing'; // true
  */
 
+var roleBuilder = require('role.builder');
+
 var serviceForeman = {
     targetCreeperCount: function() {
         var status = this.getStatus();
@@ -85,13 +87,14 @@ var serviceForeman = {
 
         if (status.spawnerNeeds > 0) {
             needs = {
-                'harvester': 6,
-                'builder': 2
+                'harvester': 5,
+                'builder': 1,
+                'upgrader': 2
             };
         } else if (status.buildingNeeded) {
             needs = {
-                'upgrader': 4,
-                'builder': 4
+                'upgrader': 5,
+                'builder': 3
             };
         } else {
             needs = {
@@ -108,20 +111,19 @@ var serviceForeman = {
 
         var spawner = Game.spawns['Spawn1'];
         var energyNeeders = spawner.room.find(FIND_MY_STRUCTURES, {
-            filter: (structure) => {
-                return (
-                    structure.structureType == STRUCTURE_EXTENSION ||
-                    structure.structureType == STRUCTURE_SPAWN ||
-                    structure.structureType == STRUCTURE_TOWER
-                ) && structure.energy < structure.energyCapacity;
-            }
-        });
-
+                    filter: (structure) => {
+                    return (
+                        structure.structureType == STRUCTURE_EXTENSION ||
+                structure.structureType == STRUCTURE_SPAWN ||
+                structure.structureType == STRUCTURE_TOWER
+            ) && structure.energy < structure.energyCapacity;
+    }
+    });
         status.spawnerNeeds = (energyNeeders !== null && energyNeeders.length > 0); //spawner.energyCapacity - spawner.energy;
 
-        var constructionSites = spawner.room.find(FIND_MY_CONSTRUCTION_SITES);
-
-        status.buildingNeeded = (constructionSites !== null && constructionSites.length > 0);
+        var nextToRepair = roleBuilder.nextThingToRepair(spawner.pos, true);
+        var nextToBuild = roleBuilder.nextThingToBuild(spawner.pos);
+        status.buildingNeeded = (nextToRepair !== null || nextToBuild !== null);
 
         status.creeperCount = Object.keys(Game.creeps).length;
 
@@ -129,12 +131,12 @@ var serviceForeman = {
     },
 
     clearUpCreeperMemory: function() {
-      for(var name in Memory.creeps) {
-        if (Game.creeps[name] == undefined) {
-          Memory.creeps[name] = undefined;
-        }
+        for(var name in Memory.creeps) {
+            if (Game.creeps[name] == undefined) {
+                Memory.creeps[name] = undefined;
+            }
 
-      }
+        }
     }
 
 };

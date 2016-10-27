@@ -13,7 +13,7 @@ var serviceSpawner = {
     run: function() {
         // console.log('Spawner ------------------------------------------------');
         if (Object.keys(Game.creeps).length < serviceForeman.targetCreeperCount()) {
-          this.spawnNewCreep();
+            this.spawnNewCreep();
         }
     },
 
@@ -24,7 +24,8 @@ var serviceSpawner = {
         var memory = {
             'role': role
         };
-        spawn.createCreep([MOVE,WORK,WORK,CARRY], memory);
+//        spawn.createCreep([MOVE,MOVE,WORK,CARRY], memory);
+        spawn.createCreep([MOVE,MOVE,MOVE,WORK,WORK,WORK,CARRY,CARRY], memory);
     }
 };
 

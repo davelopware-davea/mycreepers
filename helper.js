@@ -15,6 +15,13 @@ module.exports = {
             console.log("  "+name+": role="+creep.memory.role);
         }
     },
+    log_structs: function(structs) {
+        console.log("Structures:");
+        for (var sidx in structs) {
+            var structure = structs[sidx];
+            console.log("  "+structure.id+": type="+structure.structureType);
+        }
+    },
 
     harvestSource: function(creep, source) {
         if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
@@ -41,7 +48,7 @@ module.exports = {
                 }
                 if (creep.memory.source_waiting_for > 10) {
                     creep.memory.source_waiting_for = 0;
-                    creep.memory.source_holding_pattern = 10;
+                    creep.memory.source_holding_pattern = 5;
                     console.log(creep.name+' entering the holding pattern');
                 } else {
                     creep.say('->source');
@@ -52,6 +59,32 @@ module.exports = {
             creep.memory.source_waiting_for = undefined;
             creep.memory.source_holding_pattern = undefined;
         }
+    },
+    findMyClosestRepairable: function(pos, structType, hitsPercentage) {
+        var target = null;
+        if (structType) {
+            target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                    filter: (s) => ((s.structureType === structType) && ((s.hits * 100 / hitsPercentage) < s.hitsMax))
+        });
+        } else {
+            target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                    filter: (s) => ((s.hits * 100 / hitsPercentage) < s.hitsMax)
+        });
+        }
+        return target;
+    },
+    findClosestRepairable: function(pos, structType, hitsBelow) {
+        var target = null;
+        if (structType) {
+            target = pos.findClosestByRange(FIND_STRUCTURES, {
+                    filter: (s) => ((s.structureType === structType) && (s.hits < hitsBelow))
+        });
+        } else {
+            target = pos.findClosestByRange(FIND_STRUCTURES, {
+                    filter: (s) => (s.hits < hitsBelow)
+        });
+        }
+        return target;
     }
 
 };

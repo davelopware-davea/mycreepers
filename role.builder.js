@@ -1,57 +1,54 @@
 
 var helper = require('helper');
 
-var roleBuilder = {
+var roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
-
-	    if(creep.memory.building && creep.carry.energy == 0) {
-            creep.memory.building = false;
+        if(creep.carry.energy < creep.carryCapacity) {
+            var sources = creep.room.find(FIND_SOURCES);
             creep.say('harvesting');
-	    }
-	    if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
-	        creep.memory.building = true;
-	        creep.say('building');
-	    }
-
-	    if(creep.memory.building) {
-            var repairTarget = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                filter: (structure) => (structure.hits * 1.1) < structure.hitsMax
-            });
-            if (repairTarget) {
-                console.log(creep.name+' repair '+repairTarget.pos);
-                if(creep.repair(repairTarget) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(repairTarget);
-                }
-            } else {
-                var buildTarget = null;
-                if (buildTarget === null) {
-                    buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
-                        filter: (structure) => (structure.structureType === STRUCTURE_ROAD)
-                    });
-                }
-                if (buildTarget === null) {
-                    buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES, {
-                        filter: (structure) => (structure.structureType === STRUCTURE_EXTENSION)
-                    });
-                }
-                if (buildTarget === null) {
-                    buildTarget = creep.pos.findClosestByRange(FIND_MY_CONSTRUCTION_SITES);
-                }
-                if (buildTarget) {
-                    console.log(creep.name+' build '+buildTarget.pos);
-                    if(creep.build(buildTarget) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(buildTarget);
-                    }
-                }
-            }
-	    }
-	    else {
-	        var sources = creep.room.find(FIND_SOURCES);
             helper.harvestSource(creep, sources[0]);
-	    }
-	}
+        }
+        else {
+            var targets = null;
+            targets = creep.room.find(FIND_MY_STRUCTURES, {
+                        filter: (structure) => {
+                        return (
+                            structure.structureType == STRUCTURE_TOWER ||
+                    structure.structureType == STRUCTURE_SPAWN
+                ) && structure.energy * 2 < structure.energyCapacity;
+        }
+        });
+            if(targets.length > 0) {
+                creep.say('replenishing structure');
+                if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.say('->struct');
+                    creep.moveTo(targets[0]);
+                    console.log(creep.name+' moving to '+targets[0].pos+' to replenish it');
+                }
+                return;
+            }
+            targets = creep.room.find(FIND_MY_STRUCTURES, {
+                        filter: (structure) => {
+                        return (
+                            structure.structureType == STRUCTURE_EXTENSION ||
+                    structure.structureType == STRUCTURE_SPAWN ||
+                    structure.structureType == STRUCTURE_TOWER
+                ) && structure.energy < structure.energyCapacity;
+        }
+        });
+            if(targets.length > 0) {
+                creep.say('replenishing structure');
+                if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.say('->struct');
+                    creep.moveTo(targets[0]);
+                    console.log(creep.name+' moving to '+targets[0].pos+' to replenish it');
+                }
+                return;
+            }
+        }
+    }
 };
 
-module.exports = roleBuilder;
+module.exports = roleHarvester;
