@@ -8,7 +8,6 @@
  */
 
 var helper = require('helper');
-var roleBuilder = require('role.builder');
 
 var serviceForeman = {
     targetCreeperCount: function() {
@@ -123,7 +122,7 @@ var serviceForeman = {
         status.energyNeeded = (energyNeeders !== null && energyNeeders.length > 0); //spawner.energyCapacity - spawner.energy;
 
         var nextToRepair = this.nextThingToRepair(spawner.pos, true);
-        var nextToBuild = roleBuilder.nextThingToBuild(spawner.pos);
+        var nextToBuild = this.nextThingToBuild(spawner.pos);
         status.buildingNeeded = (nextToRepair !== null || nextToBuild !== null);
 
         status.creeperCount = Object.keys(Game.creeps).length;
