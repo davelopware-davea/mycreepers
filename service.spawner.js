@@ -20,7 +20,7 @@ var serviceSpawner = {
     spawnNewCreep: function() {
         console.log('spawning creeper');
         var spawn = Game.spawns['Spawn1'];
-        var role = serviceForeman.getSpawnedNeededRole();
+        var role = serviceForeman.getSpawnNeededRole();
         var memory = {
             'role': role
         };

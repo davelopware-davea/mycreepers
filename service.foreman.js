@@ -59,7 +59,7 @@ var serviceForeman = {
         return 'upgrader';
     },
 
-    getSpawnedNeededRole: function() {
+    getSpawnNeededRole: function() {
         var status = this.getStatus();
         var creeps = Game.creeps;
 
