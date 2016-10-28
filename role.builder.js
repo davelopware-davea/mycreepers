@@ -17,15 +17,15 @@ var roleBuilder = {
         }
 
         if(creep.memory.building) {
-            var repairTarget = null;
-            repairTarget = foreman.nextThingToRepair(creep.pos, true);
-            if (repairTarget) {
-                console.log(creep.name+' repair '+repairTarget.pos);
-                if(creep.repair(repairTarget) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(repairTarget);
-                }
-                return;
-            }
+            // var repairTarget = null;
+            // repairTarget = foreman.nextThingToRepair(creep.pos, true);
+            // if (repairTarget) {
+            //     console.log(creep.name+' repair '+repairTarget.pos);
+            //     if(creep.repair(repairTarget) == ERR_NOT_IN_RANGE) {
+            //         creep.moveTo(repairTarget);
+            //     }
+            //     return;
+            // }
             var buildTarget = null;
             buildTarget = foreman.nextThingToBuild(creep.pos, true);
             if (buildTarget) {
