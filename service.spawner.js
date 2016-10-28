@@ -20,7 +20,7 @@ var serviceSpawner = {
         var creeps = Game.creeps;
         for (var cn in creeps) {
             var creep = creeps[cn];
-            if (creep.memory.type = 'special' && creep.memory.role == 'remoteharvester') {
+            if (creep.memory.type == 'special' && creep.memory.role == 'remoteharvester') {
                 remoteHarvesterCount++;
             }
         }
