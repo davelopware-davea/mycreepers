@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2580169a-1762-4afa-bfe5-3137f09cbb58" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/role.remoteharvester.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service.spawner.js" afterPath="$PROJECT_DIR$/service.spawner.js" />
     </list>
     <ignored path="screeps.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,23 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="helper.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/helper.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1692">
-              <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+            <state relative-caret-position="348">
+              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -101,11 +91,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="service.foreman.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="service.foreman.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service.foreman.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
+            <state relative-caret-position="391">
+              <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -113,11 +103,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="role.remoteharvester.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/role.remoteharvester.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="service.spawner.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service.spawner.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state relative-caret-position="270">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -128,7 +128,7 @@
       <file leaf-file-name="trole.repairer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trole.repairer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1152">
+            <state relative-caret-position="474">
               <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
               <folding />
             </state>
@@ -151,9 +151,10 @@
         <option value="$PROJECT_DIR$/service.codex.js" />
         <option value="$PROJECT_DIR$/trole.repairer.js" />
         <option value="$PROJECT_DIR$/role.harvester.js" />
+        <option value="$PROJECT_DIR$/role.remoteharvester.js" />
+        <option value="$PROJECT_DIR$/service.foreman.js" />
         <option value="$PROJECT_DIR$/service.spawner.js" />
         <option value="$PROJECT_DIR$/main.js" />
-        <option value="$PROJECT_DIR$/service.foreman.js" />
       </list>
     </option>
   </component>
@@ -273,7 +274,7 @@
       <workItem from="1477599196757" duration="5594000" />
       <workItem from="1477643858958" duration="49000" />
       <workItem from="1477645225240" duration="30000" />
-      <workItem from="1477687092437" duration="1821000" />
+      <workItem from="1477687092437" duration="5472000" />
     </task>
     <task id="LOCAL-00001" summary="bring last nights direct hacks in the browser back into the code base">
       <created>1477643371537</created>
@@ -286,7 +287,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7494000" />
+    <option name="totallyTimeSpent" value="11145000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="43" y="21" width="1323" height="747" extended-state="6" />
@@ -591,14 +592,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trole.repairer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1152">
-          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/role.builder.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
@@ -607,30 +600,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service.spawner.js">
+    <entry file="file://$PROJECT_DIR$/service.foreman.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state relative-caret-position="391">
+          <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trole.repairer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service.spawner.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/role.remoteharvester.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service.foreman.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
+        <state relative-caret-position="348">
+          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

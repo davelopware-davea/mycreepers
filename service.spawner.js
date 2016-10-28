@@ -13,21 +13,47 @@ var serviceSpawner = {
     run: function() {
         // console.log('Spawner ------------------------------------------------');
         if (Object.keys(Game.creeps).length < serviceForeman.targetCreeperCount()) {
-            this.spawnNewCreep();
+            this.spawnNewWorkerCreep();
         }
+
+        var remoteHarvesterCount = 0;
+        var creeps = Game.creeps;
+        for (var cn in creeps) {
+            var creep = creeps[cn];
+            if (creep.type = 'special' && creep.role == 'remoteharvester') {
+                remoteHarvesterCount++;
+            }
+        }
+        if (remoteHarvesterCount < 2) {
+            this.spawnNewSpecialCreep('remoteharvester');
+        }
+
     },
 
-    spawnNewCreep: function() {
-        console.log('spawning creeper');
+    spawnNewWorkerCreep: function() {
+        console.log('spawning worker creeper');
         var spawn = Game.spawns['Spawn1'];
         var role = serviceForeman.getSpawnNeededRole();
         var memory = {
             'type': 'worker',
             'role': role
         };
-//        spawn.createCreep([MOVE,MOVE,WORK,CARRY], memory);
-        spawn.createCreep([MOVE,WORK,WORK,WORK,CARRY,CARRY,CARRY], memory);
+//        spawn.createCreep([MOVE,MOVE,WORK,CARRY], undefined, memory);
+        spawn.createCreep([MOVE,WORK,WORK,WORK,CARRY,CARRY,CARRY], undefined, memory);
+    },
+
+    spawnNewSpecialCreep: function() {
+        console.log('spawning special creeper');
+        var spawn = Game.spawns['Spawn1'];
+        var role = 'remoteharvester';
+        var memory = {
+            'type': 'special',
+            'role': role
+        };
+        var roleRemoteHarvester = require('role.remoteharvester');
+        roleRemoteHarvester.spawn(spawn, memory);
     }
+
 };
 
 module.exports = serviceSpawner;

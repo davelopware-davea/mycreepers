@@ -17,12 +17,14 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleSpecial = require('role.special');
+var roleRemoteHarvester = require('role.remoteharvester');
 
 var roles = {
     'harvester': roleHarvester,
     'upgrader': roleUpgrader,
     'builder': roleBuilder,
-    'special': roleSpecial
+    'special': roleSpecial,
+    'remoteharvester': roleRemoteHarvester
 };
 
 var troleRepairer = require('trole.repairer');
@@ -51,7 +53,7 @@ module.exports.loop = function () {
 
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
-        if (creep.memory.type !== 'worker') {
+        if (creep.memory.type !== 'worker' && creep.memory.type !== 'special') {
             break;
         }
         var role = creep.memory.role;
