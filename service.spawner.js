@@ -12,17 +12,21 @@ var serviceForeman = require('service.foreman');
 var serviceSpawner = {
     run: function() {
         // console.log('Spawner ------------------------------------------------');
-        if (Object.keys(Game.creeps).length < serviceForeman.targetCreeperCount()) {
-            this.spawnNewWorkerCreep();
-        }
 
+        var workerCount = 0;
         var remoteHarvesterCount = 0;
         var creeps = Game.creeps;
         for (var cn in creeps) {
             var creep = creeps[cn];
+            if (creep.memory.type == 'worker') {
+                workerCount++;
+            }
             if (creep.memory.type == 'special' && creep.memory.role == 'remoteharvester') {
                 remoteHarvesterCount++;
             }
+        }
+        if (workerCount < serviceForeman.targetCreeperCount()) {
+            this.spawnNewWorkerCreep();
         }
         if (remoteHarvesterCount < 2) {
             this.spawnNewSpecialCreep('remoteharvester');
