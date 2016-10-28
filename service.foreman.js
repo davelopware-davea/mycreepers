@@ -189,7 +189,7 @@ var serviceForeman = {
             function() { return helper.findMyClosestConstructable(pos, STRUCTURE_TOWER); },
             function() { return helper.findMyClosestConstructable(pos, STRUCTURE_RAMPART); },
             function() { return helper.findMyClosestConstructable(pos, STRUCTURE_WALL); },
-            function() { return helper.findMyClosestConstructable(pos, STRUCTURE_ROAD); }
+            function() { return helper.findMyClosestConstructable(pos, STRUCTURE_ROAD); },
             function() { return helper.findMyClosestConstructable(pos, STRUCTURE_STORAGE); }
         ];
         _.forEach(targetsEssential, function(finderFn) {
