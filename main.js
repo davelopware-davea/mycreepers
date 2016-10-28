@@ -51,6 +51,9 @@ module.exports.loop = function () {
 
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
+        if (creep.memory.type !== 'worker') {
+            break;
+        }
         var role = creep.memory.role;
         if (role) {
             roles[role].run(creep);

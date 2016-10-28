@@ -32,7 +32,7 @@ var serviceForeman = {
 
         for (var name in creeps) {
             var creep = creeps[name];
-            if (creep.memory.type && creep.memory.type != 'worker') {
+            if (creep.memory.type != 'worker') {
                 continue;
             }
 
