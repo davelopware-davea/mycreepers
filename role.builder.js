@@ -7,16 +7,16 @@ var roleBuilder = {
     /** @param {Creep} creep **/
     run: function(creep) {
 
-	    if(creep.memory.building && creep.carry.energy == 0) {
+        if(creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
             creep.say('harvesting');
-	    }
-	    if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
-	        creep.memory.building = true;
-	        creep.say('building');
-	    }
+        }
+        if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
+            creep.memory.building = true;
+            creep.say('building');
+        }
 
-	    if(creep.memory.building) {
+        if(creep.memory.building) {
             var repairTarget = null;
             repairTarget = foreman.nextThingToRepair(creep.pos, true);
             if (repairTarget) {
@@ -35,12 +35,12 @@ var roleBuilder = {
                 }
                 return;
             }
-	    }
-	    else {
-	        var sources = creep.room.find(FIND_SOURCES);
+        }
+        else {
+            var sources = creep.room.find(FIND_SOURCES);
             helper.harvestSource(creep, sources[0]);
-	    }
-	}
+        }
+    }
 };
 
 module.exports = roleBuilder;

@@ -25,7 +25,7 @@ var serviceSpawner = {
             'role': role
         };
 //        spawn.createCreep([MOVE,MOVE,WORK,CARRY], memory);
-        spawn.createCreep([MOVE,MOVE,MOVE,WORK,WORK,WORK,CARRY,CARRY], memory);
+        spawn.createCreep([MOVE,WORK,WORK,WORK,CARRY,CARRY,CARRY], memory);
     }
 };
 

@@ -4,12 +4,13 @@ var helper = require('helper');
 var towerRoleRepairer = {
 
     /** @param {StructureTower} tower **/
-    run: function(twoer) {
+    run: function(tower) {
         var nextToRepair = null;
 
         var nearestBase = Game.flags['Base_1'];
         nextToRepair = this.nextThingToRepair(tower.pos, true);
         if(nextToRepair) {
+            console.log('tower essential repair '+nextToRepair.pos);
             tower.repair(nextToRepair);
             return;
         }
@@ -24,8 +25,8 @@ var towerRoleRepairer = {
     nextThingToRepair: function(pos, essentialOnly) {
         var repairTarget = null;
         var orderAttemptsEssential = [
-            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_SPAWN, 95); },
-            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_RAMPART, 5); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_SPAWN, 9 ); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_RAMPART, 2); },
             function() { return helper.findMyClosestRepairable(pos, STRUCTURE_EXTENSION, 90); },
             function() { return helper.findMyClosestRepairable(pos, STRUCTURE_CONTROLLER, 90); },
             function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 10000); },

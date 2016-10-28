@@ -65,7 +65,7 @@ module.exports = {
         if (structType) {
             target = pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
                     filter: (c) => ((c.structureType === structType))
-            });
+        });
         } else {
             target = pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
         }
@@ -76,11 +76,11 @@ module.exports = {
         if (structType) {
             target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
                     filter: (s) => ((s.structureType === structType) && ((s.hits * 100 / hitsPercentage) < s.hitsMax))
-            });
+        });
         } else {
             target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
                     filter: (s) => ((s.hits * 100 / hitsPercentage) < s.hitsMax)
-            });
+        });
         }
         return target;
     },
@@ -89,11 +89,11 @@ module.exports = {
         if (structType) {
             target = pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: (s) => ((s.structureType === structType) && (s.hits < hitsBelow))
-            });
+        });
         } else {
             target = pos.findClosestByRange(FIND_STRUCTURES, {
                     filter: (s) => (s.hits < hitsBelow)
-            });
+        });
         }
         return target;
     }

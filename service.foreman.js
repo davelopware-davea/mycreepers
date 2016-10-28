@@ -87,19 +87,19 @@ var serviceForeman = {
 
         if (status.energyNeeded > 0) {
             needs = {
-                'harvester': 5,
+                'harvester': 6,
                 'builder': 1,
-                'upgrader': 2
+                'upgrader': 1
             };
         } else if (status.buildingNeeded) {
             needs = {
-                'upgrader': 5,
+                'upgrader': 7,
                 'builder': 3
             };
         } else {
             needs = {
-                'upgrader': 6,
-                'builder': 2
+                'upgrader': 8
+                //'builder': 2
             };
         }
 
@@ -111,14 +111,14 @@ var serviceForeman = {
 
         var spawner = Game.spawns['Spawn1'];
         var energyNeeders = spawner.room.find(FIND_MY_STRUCTURES, {
-            filter: (structure) => {
-                return (
-                    structure.structureType == STRUCTURE_EXTENSION ||
-                    structure.structureType == STRUCTURE_SPAWN ||
-                    structure.structureType == STRUCTURE_TOWER
-                ) && structure.energy < structure.energyCapacity;
-            }
-        });
+                    filter: (structure) => {
+                    return (
+                        structure.structureType == STRUCTURE_EXTENSION ||
+                structure.structureType == STRUCTURE_SPAWN ||
+                structure.structureType == STRUCTURE_TOWER
+            ) && structure.energy < structure.energyCapacity;
+    }
+    });
         status.energyNeeded = (energyNeeders !== null && energyNeeders.length > 0); //spawner.energyCapacity - spawner.energy;
 
         var nextToRepair = this.nextThingToRepair(spawner.pos, true);

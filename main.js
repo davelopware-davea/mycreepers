@@ -28,38 +28,24 @@ var roles = {
 var troleRepairer = require('trole.repairer');
 
 var troles = {
-    'repairerr': troleRepairer
+    'repairer': troleRepairer
 };
 
 module.exports.loop = function () {
-    // console.log('Loop ===================================================');
-
-    // var tower = Game.getObjectById('581209175e5464fb252c3435');
-    // if(tower) {
-    //     var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-    //         filter: (structure) => structure.hits < structure.hitsMax
-    //     });
-    //     if(closestDamagedStructure) {
-    //         tower.repair(closestDamagedStructure);
-    //     }
-
-    //     var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-    //     if(closestHostile) {
-    //         tower.attack(closestHostile);
-    //     }
-    // }
-
+    console.log('Loop ===================================================');
+    
     for(var serviceName in services) {
         var service = services[serviceName];
         service.run();
     }
 
-    var myStructures = Game.structure;
+    var myStructures = Game.structures;
     for(var idx in myStructures) {
         var struct = myStructures[idx];
+        // console.log('tfs:'+struct.pos);
         if (struct.structureType === STRUCTURE_TOWER) {
             var tower = struct;
-            troles['repairer'].run(towers);
+            troles['repairer'].run(tower);
         }
     }
 
