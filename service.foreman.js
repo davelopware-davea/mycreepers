@@ -32,6 +32,9 @@ var serviceForeman = {
 
         for (var name in creeps) {
             var creep = creeps[name];
+            if (creep.memory.type && creep.memory.type != 'worker') {
+                continue;
+            }
 
             var neededRole = defaultRole;
             for (var role in neededRoles) {
@@ -87,19 +90,21 @@ var serviceForeman = {
 
         if (status.energyNeeded > 0) {
             needs = {
-                'harvester': 6,
-                'builder': 1,
-                'upgrader': 1
+                'harvester': 5,
+                // 'builder': 1,
+                'upgrader': 3
             };
         } else if (status.buildingNeeded) {
             needs = {
-                'upgrader': 7,
-                'builder': 3
+                'harvester': 1,
+                'builder': 3,
+                'upgrader': 4
             };
         } else {
             needs = {
-                'upgrader': 8
-                //'builder': 2
+                'harvester': 2,
+                'builder': 0,
+                'upgrader': 6
             };
         }
 

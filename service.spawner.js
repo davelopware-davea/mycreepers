@@ -22,6 +22,7 @@ var serviceSpawner = {
         var spawn = Game.spawns['Spawn1'];
         var role = serviceForeman.getSpawnNeededRole();
         var memory = {
+            'type': 'worker',
             'role': role
         };
 //        spawn.createCreep([MOVE,MOVE,WORK,CARRY], memory);
