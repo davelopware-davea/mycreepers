@@ -9,11 +9,18 @@ var roleRemoteHarvester = {
     /** @param {Creep} creep **/
     run: function(creep) {
 
-        var drinkhere = Game.flags.drinkhere.pos.findClosestByRange(FIND_SOURCES);
+        var drinkhere = null;
+        try {
+            drinkhere = Game.flags.drinkhere.pos.findClosestByRange(FIND_SOURCES);
+        } catch (ex) {
+        }
         if (creep.memory.gather) {
             if (creep.carry.energy < creep.carryCapacity) {
                 creep.say('+');
-                if (creep.harvest(drinkhere) == ERR_NOT_IN_RANGE) {
+                if (drinkhere === null) {
+                    creep.moveTo(Game.flags.drinkhere);
+                    return;
+                } else if (creep.harvest(drinkhere) == ERR_NOT_IN_RANGE) {
                     creep.say('->+');
                     creep.moveTo(drinkhere.pos);
                 }
