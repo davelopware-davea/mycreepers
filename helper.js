@@ -12,7 +12,7 @@ module.exports = {
         console.log("Creeps:");
         for (var name in Game.creeps) {
             var creep = Game.creeps[name];
-            console.log("  "+name+": role="+creep.memory.role);
+            console.log("  "+name+": type="+creep.memory.type+" role="+creep.memory.role);
         }
     },
     log_structs: function(structs) {
