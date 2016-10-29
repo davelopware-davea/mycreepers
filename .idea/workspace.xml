@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2580169a-1762-4afa-bfe5-3137f09cbb58" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/helper.js" afterPath="$PROJECT_DIR$/helper.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/role.harvester.js" afterPath="$PROJECT_DIR$/role.harvester.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/role.remoteharvester.js" afterPath="$PROJECT_DIR$/role.remoteharvester.js" />
     </list>
     <ignored path="screeps.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,7 +69,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="role.harvester.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="role.harvester.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/role.harvester.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="133">
@@ -102,11 +101,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="role.remoteharvester.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="role.remoteharvester.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/role.remoteharvester.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="40" column="30" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
+            <state relative-caret-position="267">
+              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -148,7 +147,6 @@
         <option value="$PROJECT_DIR$/service.codex.js" />
         <option value="$PROJECT_DIR$/trole.repairer.js" />
         <option value="$PROJECT_DIR$/role.builder.js" />
-        <option value="$PROJECT_DIR$/role.remoteharvester.js" />
         <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/service.foreman.js" />
         <option value="$PROJECT_DIR$/role.replenisher.js" />
@@ -156,6 +154,7 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.txt" />
         <option value="$PROJECT_DIR$/helper.js" />
         <option value="$PROJECT_DIR$/role.harvester.js" />
+        <option value="$PROJECT_DIR$/role.remoteharvester.js" />
       </list>
     </option>
   </component>
@@ -288,7 +287,7 @@
       <workItem from="1477599196757" duration="5594000" />
       <workItem from="1477643858958" duration="49000" />
       <workItem from="1477645225240" duration="30000" />
-      <workItem from="1477687092437" duration="28565000" />
+      <workItem from="1477687092437" duration="29242000" />
     </task>
     <task id="LOCAL-00001" summary="bring last nights direct hacks in the browser back into the code base">
       <created>1477643371537</created>
@@ -301,7 +300,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34238000" />
+    <option name="totallyTimeSpent" value="34915000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="43" y="21" width="1323" height="747" extended-state="6" />
@@ -614,14 +613,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/role.remoteharvester.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="40" column="30" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/service.foreman.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="373">
@@ -672,6 +663,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="23" column="83" selection-start-line="23" selection-start-column="83" selection-end-line="23" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/role.remoteharvester.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -44,8 +44,8 @@ var roleRemoteHarvester = {
                         creep.moveTo(constructionSite.pos);
                     }
                 } else {
-                    // var target = Game.flags.Base_1.pos.findClosestByPath(FIND_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_STORAGE)});
-                    var target = Game.flags.Base_1.pos.findClosestByPath(FIND_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_CONTROLLER)});
+                    var target = Game.flags.Base_1.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_STORAGE)});
+                    // var target = Game.flags.Base_1.pos.findClosestByPath(FIND_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_CONTROLLER)});
                     creep.say('@');
                     if (helper.putEnergyInto(creep, target) == ERR_NOT_IN_RANGE) {
                         creep.say('->@');
