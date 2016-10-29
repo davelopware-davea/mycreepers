@@ -49,7 +49,9 @@ var serviceSpawner = {
         ];
         for (var idx in spawnBodyOrder) {
             var body = spawnBodyOrder[idx];
+            console.log('trying to spawn:'+JSON.stringify(body));
             if (spawn.canCreateCreep(body, undefined, memory)) {
+                console.log('spawning...');
                 spawn.createCreep(body, undefined, memory);
                 return;
             }
