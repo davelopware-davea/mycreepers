@@ -92,9 +92,9 @@ module.exports = {
             energyPercentageAbove = 0.001;
         }
         if (
-            struct instanceof Extension ||
-            struct instanceof Tower ||
-            struct instanceof Spawn
+            struct instanceof StructureExtension ||
+            struct instanceof StructureTower ||
+            struct instanceof StructureSpawn
         ) {
             if (struct.structureType !== structType) {
                 return false;
@@ -110,8 +110,8 @@ module.exports = {
             return true;
         }
         if (
-            struct instanceof Storage ||
-            struct instanceof Container
+            struct instanceof StructureStorage ||
+            struct instanceof StructureContainer
         ) {
             if (struct.structureType !== structType) {
                 return false;
@@ -127,7 +127,7 @@ module.exports = {
             return true;
         }
         if (
-            struct instanceof Controller
+            struct instanceof StructureController
         ) {
             if (energyPercentageBelow !== null &&
                 ((s.progress * 100 / energyPercentageBelow) >= s.progressTotal)
