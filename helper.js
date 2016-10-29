@@ -87,7 +87,7 @@ module.exports = {
             return creep.transfer(struct, RESOURCE_ENERGY);
         }
     },
-    findMyClosestEnergyStoreToFill: function(pos) {
+    findMyClosestEnergyStoreToFill: function(pos, energyPercentageBelow, energyPercentageAbove) {
         var target = null;
         if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (s) {
