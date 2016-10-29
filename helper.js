@@ -25,7 +25,7 @@ module.exports = {
 
     harvestSource: function(creep, source) {
         creep.say('+');
-        if (this.getEnergyFrom(creep, source)) == ERR_NOT_IN_RANGE) {
+        if (this.getEnergyFrom(creep, source) == ERR_NOT_IN_RANGE) {
             // check if we're in a holding pattern
             if (creep.memory.source_holding_pattern && creep.memory.source_holding_pattern > 0) {
                 var holdingFlag = Game.flags['SourceHoldingPattern'];
@@ -88,17 +88,17 @@ module.exports = {
         var target = null;
         target = pos.findClosestByRange(FIND_MY_STRUCTURE, {
                 filter: (c) => ((c.structureType === STRUCTURE_STORAGE))
-    };
+    });
         if (target) return target;
 
         target = pos.findClosestByRange(FIND_MY_STRUCTURE, {
                 filter: (c) => ((c.structureType === STRUCTURE_CONTAINER))
-    };
+    });
         if (target) return target;
 
         target = pos.findClosestByRange(FIND_MY_STRUCTURE, {
                 filter: (c) => ((c.structureType === STRUCTURE_EXTENSION))
-    };
+    });
         if (target) return target;
 
         return null;
