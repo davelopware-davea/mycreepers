@@ -88,6 +88,9 @@ module.exports = {
         }
     },
     structureTypeAndEnergyBetween: function(struct, structType, energyPercentageBelow, energyPercentageAbove) {
+        if (struct.structureType !== structType) {
+            return false;
+        }
         if (energyPercentageAbove === 0) {
             energyPercentageAbove = 0.000001;
         }
@@ -96,9 +99,7 @@ module.exports = {
             struct.structureType === STRUCTURE_TOWER ||
             struct.structureType === STRUCTURE_SPAWN
         ) {
-            if (struct.structureType !== structType) {
-                return false;
-            } else if (energyPercentageBelow !== null &&
+            if (energyPercentageBelow !== null &&
                 ((struct.energy * 100 / struct.energyCapacity) >= energyPercentageBelow)
             ) {
                 return false;
@@ -113,9 +114,7 @@ module.exports = {
             struct.structureType === STRUCTURE_STORAGE ||
             struct.structureType === STRUCTURE_CONTAINER
         ) {
-            if (struct.structureType !== structType) {
-                return false;
-            } else if (energyPercentageBelow !== null &&
+            if (energyPercentageBelow !== null &&
                 ((struct.store * 100 / struct.storeCapacity) >= energyPercentageBelow)
             ) {
                 return false;
