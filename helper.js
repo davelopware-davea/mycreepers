@@ -87,57 +87,100 @@ module.exports = {
             return creep.transfer(struct, RESOURCE_ENERGY);
         }
     },
+    structureTypeAndEnergyBetween: function(struct, structType, energyPercentageBelow, energyPercentageAbove) {
+        if (energyPercentageAbove === 0) {
+            energyPercentageAbove = 0.001;
+        }
+        if (
+            struct instanceof Extension ||
+            struct instanceof Tower ||
+            struct instanceof Spawn
+        ) {
+            if (struct.structureType !== structType) {
+                return false;
+            } else if (energyPercentageBelow !== null &&
+                ((s.energy * 100 / energyPercentageBelow) >= s.energyCapacity)
+            ) {
+                return false;
+            } else if (energyPercentageAbove !== null &&
+                ((s.energy * 100 / energyPercentageAbove) <= s.energyCapacity)
+            ) {
+                return false;
+            }
+            return true;
+        }
+        if (
+            struct instanceof Storage ||
+            struct instanceof Container
+        ) {
+            if (struct.structureType !== structType) {
+                return false;
+            } else if (energyPercentageBelow !== null &&
+                ((s.store * 100 / energyPercentageBelow) >= s.storeCapacity)
+            ) {
+                return false;
+            } else if (energyPercentageAbove !== null &&
+                ((s.store * 100 / energyPercentageAbove) <= s.storeCapacity)
+            ) {
+                return false;
+            }
+            return true;
+        }
+        if (
+            struct instanceof Controller
+        ) {
+            if (energyPercentageBelow !== null &&
+                ((s.progress * 100 / energyPercentageBelow) >= s.progressTotal)
+            ) {
+                return false;
+            } else if (energyPercentageAbove !== null &&
+                ((s.progress * 100 / energyPercentageAbove) <= s.progressTotal)
+            ) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    },
     findMyClosestEnergyStoreToFill: function(pos, energyPercentageBelow, energyPercentageAbove) {
         var target = null;
         if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (s) {
-                return ((s.structureType === STRUCTURE_EXTENSION) &&
-                    (
-                        (energyPercentageBelow !== null && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
-                        ||
-                        (energyPercentageAbove !== null && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
-                    )
-                )
+                return this.structureTypeAndEnergyBetween(s, STRUCTURE_EXTENSION, energyPercentageBelow, energyPercentageAbove);
             }
         });
         if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (s) {
-                return ((s.structureType === STRUCTURE_CONTAINER) &&
-                    (
-                        (energyPercentageBelow !== null && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
-                        ||
-                        (energyPercentageAbove !== null && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
-                    )
-                )
+                return this.structureTypeAndEnergyBetween(s, STRUCTURE_CONTAINER, energyPercentageBelow, energyPercentageAbove);
             }
         });
         if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (s) {
-                return ((s.structureType === STRUCTURE_STORAGE) &&
-                    (
-                        (energyPercentageBelow !== null && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
-                        ||
-                        (energyPercentageAbove !== null && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
-                    )
-                )
+                return this.structureTypeAndEnergyBetween(s, STRUCTURE_STORAGE, energyPercentageBelow, energyPercentageAbove);
             }
         });
     },
     findMyClosestEnergyStoreToUse: function(pos) {
         var target = null;
         target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                filter: (c) => ((c.structureType === STRUCTURE_STORAGE))
-    });
+            filter: function(s) {
+                return this.structureTypeAndEnergyBetween(s, STRUCTURE_STORAGE, 100, null);
+            }
+        });
         if (target) return target;
 
         target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                filter: (c) => ((c.structureType === STRUCTURE_CONTAINER))
-    });
+            filter: function(s) {
+                return this.structureTypeAndEnergyBetween(s, STRUCTURE_CONTAINER, 100, null);
+            }
+        });
         if (target) return target;
 
         target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                filter: (c) => ((c.structureType === STRUCTURE_EXTENSION))
-    });
+            filter: function(s) {
+                return this.structureTypeAndEnergyBetween(s, STRUCTURE_EXTENSION, 100, null);
+            }
+        });
         if (target) return target;
 
         return null;
@@ -151,8 +194,8 @@ module.exports = {
         var target = null;
         if (structType) {
             target = pos.findClosestByRange(FIND_CONSTRUCTION_SITES, {
-                    filter: (c) => ((c.structureType === structType))
-        });
+                filter: function(c) { return (c.structureType === structType); }
+            });
         } else {
             target = pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
         }
@@ -162,34 +205,7 @@ module.exports = {
         var target = null;
         target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function(s) {
-                if (s.structureType === structType) {
-                    if (structType === STRUCTURE_STORAGE ||
-                        structType === STRUCTURE_CONTAINER
-                    ) {
-                        return (
-                            (energyPercentageBelow !== null && ((s.store * 100 / energyPercentageBelow) < s.storeCapacity))
-                                ||
-                            (energyPercentageAbove !== null && ((s.store * 100 / energyPercentageAbove) > s.storeCapacity))
-                        );
-                    }
-                    if (structType === STRUCTURE_EXTENSION ||
-                        structType === STRUCTURE_TOWER ||
-                        structType === STRUCTURE_SPAWN
-                    ) {
-                        return (
-                            (energyPercentageBelow !== null && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
-                            ||
-                            (energyPercentageAbove !== null && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
-                        );
-                    }
-                    if (structType === STRUCTURE_CONTROLLER) {
-                        return (
-                            (energyPercentageBelow !== null && ((s.progress * 100 / energyPercentageBelow) < s.progressTotal))
-                            ||
-                            (energyPercentageAbove !== null && ((s.progress * 100 / energyPercentageAbove) > s.progressTotal))
-                        );
-                    }
-                }
+                return this.structureTypeAndEnergyBetween(s, structType, energyPercentageBelow, energyPercentageAbove);
             }
         });
         return target;
@@ -198,12 +214,16 @@ module.exports = {
         var target = null;
         if (structType) {
             target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                    filter: (s) => ((s.structureType === structType) && ((s.hits * 100 / hitsPercentage) < s.hitsMax))
-        });
+                filter: function(s) {
+                    return ((s.structureType === structType) && ((s.hits * 100 / hitsPercentage) < s.hitsMax));
+                }
+            });
         } else {
             target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                    filter: (s) => ((s.hits * 100 / hitsPercentage) < s.hitsMax)
-        });
+                filter: function(s) {
+                    return ((s.hits * 100 / hitsPercentage) < s.hitsMax);
+                }
+            });
         }
         return target;
     },
@@ -211,12 +231,16 @@ module.exports = {
         var target = null;
         if (structType) {
             target = pos.findClosestByRange(FIND_STRUCTURES, {
-                    filter: (s) => ((s.structureType === structType) && (s.hits < hitsBelow))
-        });
+                filter: function(s) {
+                    return ((s.structureType === structType) && (s.hits < hitsBelow));
+                }
+            });
         } else {
             target = pos.findClosestByRange(FIND_STRUCTURES, {
-                    filter: (s) => (s.hits < hitsBelow)
-        });
+                filter: function(s) {
+                    return (s.hits < hitsBelow);
+                }
+            });
         }
         return target;
     }
