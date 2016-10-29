@@ -23,7 +23,7 @@ var roleHarvester = {
         } else {
             var target = helper.findMyClosestEnergyStoreToFill(creep.pos);
             if(target) {
-                creep.say('replenishing store '+target.pos);
+                console.log('replenishing store '+target.pos);
                 creep.say('*');
                 if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.say('->*');
