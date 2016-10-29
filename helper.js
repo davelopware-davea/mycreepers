@@ -99,11 +99,11 @@ module.exports = {
             if (struct.structureType !== structType) {
                 return false;
             } else if (energyPercentageBelow !== null &&
-                ((s.energy * 100 / energyPercentageBelow) >= s.energyCapacity)
+                ((struct.energy * 100 / energyPercentageBelow) >= struct.energyCapacity)
             ) {
                 return false;
             } else if (energyPercentageAbove !== null &&
-                ((s.energy * 100 / energyPercentageAbove) <= s.energyCapacity)
+                ((struct.energy * 100 / energyPercentageAbove) <= struct.energyCapacity)
             ) {
                 return false;
             }
