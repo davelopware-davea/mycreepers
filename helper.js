@@ -91,9 +91,9 @@ module.exports = {
         if (struct.structureType !== structType) {
             return false;
         }
-        if (energyPercentageAbove === 0) {
-            energyPercentageAbove = 0.000001;
-        }
+        // if (energyPercentageAbove === 0) {
+        //     energyPercentageAbove = 0.000001;
+        // }
         if (
             struct.structureType === STRUCTURE_EXTENSION ||
             struct.structureType === STRUCTURE_TOWER ||
