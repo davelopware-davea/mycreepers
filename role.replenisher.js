@@ -27,7 +27,7 @@ var roleHarvester = {
             if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_TOWER);
             if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_CONTROLLER);
 
-            if (target === null) {
+            if (target !== null) {
                 creep.say('replenishing structure');
                 if(helper.putEnergyInto(creep, target) == ERR_NOT_IN_RANGE) {
                     creep.say('->struct');
