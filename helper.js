@@ -141,7 +141,7 @@ module.exports = {
         }
         return target;
     },
-    findMyClosestRechargeable: function(pos, structType, energyPercentage) {
+    findMyClosestRechargeable: function(pos, structType, energyPercentageBelow, energyPercentageAbove) {
         var target = null;
         if (structType) {
             target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
@@ -150,13 +150,28 @@ module.exports = {
                         if (structType === STRUCTURE_STORAGE ||
                             structType === STRUCTURE_CONTAINER
                         ) {
-                            return (s.store * 100 / energyPercentage) < s.storeCapacity;
+                            return (
+                                (energyPercentageBelow && ((s.store * 100 / energyPercentageBelow) < s.storeCapacity))
+                                    ||
+                                (energyPercentageAbove && ((s.store * 100 / energyPercentageAbove) > s.storeCapacity))
+                            );
                         }
                         if (structType === STRUCTURE_EXTENSION ||
                             structType === STRUCTURE_TOWER ||
                             structType === STRUCTURE_SPAWN
                         ) {
-                            return (s.energy * 100 / energyPercentage) < s.energyCapacity;
+                            return (
+                                (energyPercentageBelow && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
+                                ||
+                                (energyPercentageAbove && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
+                            );
+                        }
+                        if (structType === STRUCTURE_CONTROLLER) {
+                            return (
+                                (energyPercentageBelow && ((s.progress * 100 / energyPercentageBelow) < s.progressTotal))
+                                ||
+                                (energyPercentageAbove && ((s.progress * 100 / energyPercentageAbove) > s.progressTotal))
+                            );
                         }
                     }
                 }
