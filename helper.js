@@ -160,32 +160,27 @@ module.exports = {
                 return helper.structureTypeAndEnergyBetween(s, STRUCTURE_STORAGE, energyPercentageBelow, energyPercentageAbove);
             }
         });
+        return target;
     },
     findMyClosestEnergyStoreToUse: function(pos) {
         var helper = this;
         var target = null;
-        target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+        if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function(s) {
                 return helper.structureTypeAndEnergyBetween(s, STRUCTURE_STORAGE, 100, null);
             }
         });
-        if (target) return target;
-
-        target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+        if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function(s) {
                 return helper.structureTypeAndEnergyBetween(s, STRUCTURE_CONTAINER, 100, null);
             }
         });
-        if (target) return target;
-
-        target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+        if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function(s) {
                 return helper.structureTypeAndEnergyBetween(s, STRUCTURE_EXTENSION, 100, null);
             }
         });
-        if (target) return target;
-
-        return null;
+        return target;
     },
     findClosestRawSource: function(pos) {
         var target = null;
