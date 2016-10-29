@@ -14,6 +14,7 @@ var services = {
 }
 
 var roleHarvester = require('role.harvester');
+var roleReplenisher = require('role.replenisher');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleSpecial = require('role.special');
@@ -21,6 +22,7 @@ var roleRemoteHarvester = require('role.remoteharvester');
 
 var roles = {
     'harvester': roleHarvester,
+    'replenisher': roleReplenisher,
     'upgrader': roleUpgrader,
     'builder': roleBuilder,
     'special': roleSpecial,
