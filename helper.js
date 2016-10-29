@@ -89,7 +89,7 @@ module.exports = {
     },
     structureTypeAndEnergyBetween: function(struct, structType, energyPercentageBelow, energyPercentageAbove) {
         if (energyPercentageAbove === 0) {
-            energyPercentageAbove = 0.001;
+            energyPercentageAbove = 0.000001;
         }
         if (
             struct.structureType === STRUCTURE_EXTENSION ||
@@ -99,11 +99,11 @@ module.exports = {
             if (struct.structureType !== structType) {
                 return false;
             } else if (energyPercentageBelow !== null &&
-                ((struct.energy * 100 / energyPercentageBelow) >= struct.energyCapacity)
+                ((struct.energy * 100 / struct.energyCapacity) >= energyPercentageBelow)
             ) {
                 return false;
             } else if (energyPercentageAbove !== null &&
-                ((struct.energy * 100 / energyPercentageAbove) <= struct.energyCapacity)
+                ((struct.energy * 100 / struct.energyCapacity) <= energyPercentageAbove)
             ) {
                 return false;
             }
@@ -116,11 +116,11 @@ module.exports = {
             if (struct.structureType !== structType) {
                 return false;
             } else if (energyPercentageBelow !== null &&
-                ((struct.store * 100 / energyPercentageBelow) >= struct.storeCapacity)
+                ((struct.store * 100 / struct.storeCapacity) >= energyPercentageBelow)
             ) {
                 return false;
             } else if (energyPercentageAbove !== null &&
-                ((struct.store * 100 / energyPercentageAbove) <= struct.storeCapacity)
+                ((struct.store * 100 / struct.storeCapacity) <= energyPercentageAbove)
             ) {
                 return false;
             }
@@ -130,11 +130,11 @@ module.exports = {
             struct.structureType === STRUCTURE_CONTROLLER
         ) {
             if (energyPercentageBelow !== null &&
-                ((struct.progress * 100 / energyPercentageBelow) >= struct.progressTotal)
+                ((struct.progress * 100 / struct.progressTotal) >= energyPercentageBelow)
             ) {
                 return false;
             } else if (energyPercentageAbove !== null &&
-                ((struct.progress * 100 / energyPercentageAbove) <= struct.progressTotal)
+                ((struct.progress * 100 / struct.progressTotal) <= energyPercentageAbove)
             ) {
                 return false;
             }
