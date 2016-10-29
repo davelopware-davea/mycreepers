@@ -143,6 +143,7 @@ module.exports = {
         return false;
     },
     findMyClosestEnergyStoreToFill: function(pos, energyPercentageBelow, energyPercentageAbove) {
+        var helper = this;
         var target = null;
         if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (s) {
@@ -161,6 +162,7 @@ module.exports = {
         });
     },
     findMyClosestEnergyStoreToUse: function(pos) {
+        var helper = this;
         var target = null;
         target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function(s) {
@@ -202,6 +204,7 @@ module.exports = {
         return target;
     },
     findMyClosestRechargeable: function(pos, structType, energyPercentageBelow, energyPercentageAbove) {
+        var helper = this;
         var target = null;
         target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function(s) {

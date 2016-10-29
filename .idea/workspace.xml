@@ -28,8 +28,8 @@
       <file leaf-file-name="helper.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/helper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="243" column="4" selection-start-line="243" selection-start-column="4" selection-end-line="243" selection-end-column="4" />
+            <state relative-caret-position="151">
+              <caret line="149" column="57" selection-start-line="149" selection-start-column="16" selection-end-line="149" selection-end-column="57" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -282,7 +282,7 @@
       <workItem from="1477599196757" duration="5594000" />
       <workItem from="1477643858958" duration="49000" />
       <workItem from="1477645225240" duration="30000" />
-      <workItem from="1477687092437" duration="20573000" />
+      <workItem from="1477687092437" duration="20746000" />
     </task>
     <task id="LOCAL-00001" summary="bring last nights direct hacks in the browser back into the code base">
       <created>1477643371537</created>
@@ -295,7 +295,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26246000" />
+    <option name="totallyTimeSpent" value="26419000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="43" y="21" width="1323" height="747" extended-state="6" />
@@ -654,8 +654,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/helper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="243" column="4" selection-start-line="243" selection-start-column="4" selection-end-line="243" selection-end-column="4" />
+        <state relative-caret-position="151">
+          <caret line="149" column="57" selection-start-line="149" selection-start-column="16" selection-end-line="149" selection-end-column="57" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
