@@ -93,9 +93,9 @@ module.exports = {
             filter: function (s) {
                 return ((s.structureType === STRUCTURE_EXTENSION) &&
                     (
-                        (energyPercentageBelow && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
+                        (energyPercentageBelow !== null && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
                         ||
-                        (energyPercentageAbove && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
+                        (energyPercentageAbove !== null && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
                     )
                 )
             }
@@ -104,9 +104,9 @@ module.exports = {
             filter: function (s) {
                 return ((s.structureType === STRUCTURE_CONTAINER) &&
                     (
-                        (energyPercentageBelow && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
+                        (energyPercentageBelow !== null && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
                         ||
-                        (energyPercentageAbove && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
+                        (energyPercentageAbove !== null && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
                     )
                 )
             }
@@ -115,9 +115,9 @@ module.exports = {
             filter: function (s) {
                 return ((s.structureType === STRUCTURE_STORAGE) &&
                     (
-                        (energyPercentageBelow && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
+                        (energyPercentageBelow !== null && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
                         ||
-                        (energyPercentageAbove && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
+                        (energyPercentageAbove !== null && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
                     )
                 )
             }
@@ -167,9 +167,9 @@ module.exports = {
                         structType === STRUCTURE_CONTAINER
                     ) {
                         return (
-                            (energyPercentageBelow && ((s.store * 100 / energyPercentageBelow) < s.storeCapacity))
+                            (energyPercentageBelow !== null && ((s.store * 100 / energyPercentageBelow) < s.storeCapacity))
                                 ||
-                            (energyPercentageAbove && ((s.store * 100 / energyPercentageAbove) > s.storeCapacity))
+                            (energyPercentageAbove !== null && ((s.store * 100 / energyPercentageAbove) > s.storeCapacity))
                         );
                     }
                     if (structType === STRUCTURE_EXTENSION ||
@@ -177,16 +177,16 @@ module.exports = {
                         structType === STRUCTURE_SPAWN
                     ) {
                         return (
-                            (energyPercentageBelow && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
+                            (energyPercentageBelow !== null && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
                             ||
-                            (energyPercentageAbove && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
+                            (energyPercentageAbove !== null && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
                         );
                     }
                     if (structType === STRUCTURE_CONTROLLER) {
                         return (
-                            (energyPercentageBelow && ((s.progress * 100 / energyPercentageBelow) < s.progressTotal))
+                            (energyPercentageBelow !== null && ((s.progress * 100 / energyPercentageBelow) < s.progressTotal))
                             ||
-                            (energyPercentageAbove && ((s.progress * 100 / energyPercentageAbove) > s.progressTotal))
+                            (energyPercentageAbove !== null && ((s.progress * 100 / energyPercentageAbove) > s.progressTotal))
                         );
                     }
                 }
