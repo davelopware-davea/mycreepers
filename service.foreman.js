@@ -135,6 +135,50 @@ var serviceForeman = {
         return status;
     },
 
+    nextThingToRecharge: function(pos, essentialOnly) {
+        if (essentialOnly === undefined) {
+            essentialOnly = false;
+        }
+        var target = null;
+
+        var targetsEssential = [
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_SPAWN, 100); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_TOWER, 100); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_RAMPART, 2); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_EXTENSION, 100); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_CONTROLLER, 100); }
+        ];
+        _.forEach(targetsEssential, function(finderFn) {
+            target = finderFn();
+            if (target) {
+                return false; // stop looping
+            }
+        });
+        if (target || essentialOnly) {
+            return target;
+        }
+
+        var targetsAdditional = [
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_RAMPART, 5); },
+            function() { return helper.findClosestRepairable(pos, STRUCTURE_ROAD, 5000); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_WALL, 5000); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_WALL, 10000); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_WALL, 20000); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_WALL, 40000); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_WALL, 50000); },
+        ];
+
+        _.forEach(targetsAdditional, function(finderFn) {
+            target = finderFn();
+            if (target) {
+                return false; // stop looping
+            }
+        });
+        if (target) {
+            return target;
+        }
+    },
+
     nextThingToRepair: function(pos, essentialOnly) {
         if (essentialOnly === undefined) {
             essentialOnly = false;

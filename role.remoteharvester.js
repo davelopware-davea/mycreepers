@@ -1,3 +1,5 @@
+
+var helper = require('helper');
 var serviceCodex = require('service.codex');
 
 var roleRemoteHarvester = {
@@ -11,7 +13,7 @@ var roleRemoteHarvester = {
 
         var drinkhere = null;
         try {
-            drinkhere = Game.flags.drinkhere.pos.findClosestByRange(FIND_SOURCES);
+            drinkhere = helper.findClosestRawSource(Game.flags.drinkhere.pos);
         } catch (ex) {
         }
         if (creep.memory.gather) {
@@ -20,7 +22,7 @@ var roleRemoteHarvester = {
                 if (drinkhere === null) {
                     creep.moveTo(Game.flags.drinkhere);
                     return;
-                } else if (creep.harvest(drinkhere) == ERR_NOT_IN_RANGE) {
+                } else if (helper.getEnergyFrom(creep, drinkhere) == ERR_NOT_IN_RANGE) {
                     creep.say('->+');
                     creep.moveTo(drinkhere.pos);
                 }
@@ -45,7 +47,7 @@ var roleRemoteHarvester = {
                     // var target = Game.flags.Base_1.pos.findClosestByPath(FIND_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_STORAGE)});
                     var target = Game.flags.Base_1.pos.findClosestByPath(FIND_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_CONTROLLER)});
                     creep.say('@');
-                    if (creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    if (helper.putEnergyInto(creep, target) == ERR_NOT_IN_RANGE) {
                         creep.say('->@');
                         creep.moveTo(target.pos);
                     }

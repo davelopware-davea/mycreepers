@@ -24,14 +24,15 @@ module.exports = {
     },
 
     harvestSource: function(creep, source) {
-        if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
+        creep.say('+');
+        if (this.getEnergyFrom(creep, source)) == ERR_NOT_IN_RANGE) {
             // check if we're in a holding pattern
             if (creep.memory.source_holding_pattern && creep.memory.source_holding_pattern > 0) {
                 var holdingFlag = Game.flags['SourceHoldingPattern'];
                 creep.moveTo(holdingFlag);
                 creep.memory.source_holding_pattern = creep.memory.source_holding_pattern - 1;
                 creep.memory.source_waiting_for = 0;
-                creep.say('->hold_'+creep.memory.source_holding_pattern);
+                creep.say('->X_'+creep.memory.source_holding_pattern);
                 console.log(creep.name+' holding now for '+creep.memory.source_holding_pattern);
 
             } else {
@@ -43,7 +44,7 @@ module.exports = {
                     } else {
                         creep.memory.source_waiting_for = 1;
                     }
-                    creep.say('->src|'+creep.memory.source_waiting_for);
+                    creep.say('->+|'+creep.memory.source_waiting_for);
                     console.log(creep.name+' source blocked now for '+creep.memory.source_waiting_for);
                 }
                 if (creep.memory.source_waiting_for > 10) {
@@ -51,7 +52,7 @@ module.exports = {
                     creep.memory.source_holding_pattern = 5;
                     console.log(creep.name+' entering the holding pattern');
                 } else {
-                    creep.say('->source');
+                    creep.say('->+');
                     creep.moveTo(source);
                 }
             }
@@ -59,6 +60,53 @@ module.exports = {
             creep.memory.source_waiting_for = undefined;
             creep.memory.source_holding_pattern = undefined;
         }
+    },
+    getEnergyFrom: function(creep, struct) {
+        if (struct.ticksToRegeneration !== undefined) {
+            return creep.harvest(struct);
+        }
+        if (struct.structureType === STRUCTURE_STORAGE ||
+            struct.structureType === STRUCTURE_CONTAINER ||
+            struct.structureType === STRUCTURE_EXTENSION
+        ) {
+            return creep.withdraw(struct, RESOURCE_ENERGY);
+        }
+    },
+    putEnergyInto: function(creep, target) {
+        if (target.structureType === STRUCTURE_CONTROLLER) {
+            return creep.upgradeController(target);
+        }
+        if (target.structureType === STRUCTURE_STORAGE ||
+            target.structureType === STRUCTURE_CONTAINER ||
+            target.structureType === STRUCTURE_SPAWN ||
+            target.structureType === STRUCTURE_TOWER
+        ) {
+            return creep.transfer(struct, RESOURCE_ENERGY);
+        }
+    },
+    findMyClosestEnergyStore: function(pos) {
+        var target = null;
+        target = pos.findClosestByRange(FIND_MY_STRUCTURE, {
+                filter: (c) => ((c.structureType === STRUCTURE_STORAGE))
+    };
+        if (target) return target;
+
+        target = pos.findClosestByRange(FIND_MY_STRUCTURE, {
+                filter: (c) => ((c.structureType === STRUCTURE_CONTAINER))
+    };
+        if (target) return target;
+
+        target = pos.findClosestByRange(FIND_MY_STRUCTURE, {
+                filter: (c) => ((c.structureType === STRUCTURE_EXTENSION))
+    };
+        if (target) return target;
+
+        return null;
+    },
+    findClosestRawSource: function(pos) {
+        var target = null;
+        target = pos.findClosestByRange(FIND_SOURCES)
+        return target;
     },
     findMyClosestConstructable: function(pos, structType) {
         var target = null;
@@ -68,6 +116,33 @@ module.exports = {
         });
         } else {
             target = pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+        }
+        return target;
+    },
+    findMyClosestRechargeable: function(pos, structType, energyPercentage) {
+        var target = null;
+        if (structType) {
+            target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                filter: function(s) {
+                    if (s.structureType === structType) {
+                        if (structType === STRUCTURE_STORAGE ||
+                            structType === STRUCTURE_CONTAINER
+                        ) {
+                            return (s.store * 100 / energyPercentage) < s.storeCapacity;
+                        }
+                        if (structType === STRUCTURE_EXTENSION ||
+                            structType === STRUCTURE_TOWER ||
+                            structType === STRUCTURE_SPAWN
+                        ) {
+                            return (s.energy * 100 / energyPercentage) < s.energyCapacity;
+                        }
+                    }
+                }
+            });
+        } else {
+            target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+                    filter: (s) => ((s.hits * 100 / hitsPercentage) < s.hitsMax)
+        });
         }
         return target;
     },
