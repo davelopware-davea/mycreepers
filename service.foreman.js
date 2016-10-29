@@ -90,21 +90,24 @@ var serviceForeman = {
 
         if (status.energyNeeded > 0) {
             needs = {
-                'harvester': 5,
-                // 'builder': 1,
-                'upgrader': 3
+                'harvester': 3,
+                'replenisher': 4,
+                'builder': 1,
+                'upgrader': 1
             };
         } else if (status.buildingNeeded) {
             needs = {
                 'harvester': 1,
+                'replenisher': 1,
                 'builder': 3,
                 'upgrader': 4
             };
         } else {
             needs = {
                 'harvester': 2,
+                'replenisher': 2,
                 'builder': 0,
-                'upgrader': 6
+                'upgrader': 5
             };
         }
 
