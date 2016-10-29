@@ -130,11 +130,11 @@ module.exports = {
             struct instanceof StructureController
         ) {
             if (energyPercentageBelow !== null &&
-                ((s.progress * 100 / energyPercentageBelow) >= s.progressTotal)
+                ((struct.progress * 100 / energyPercentageBelow) >= struct.progressTotal)
             ) {
                 return false;
             } else if (energyPercentageAbove !== null &&
-                ((s.progress * 100 / energyPercentageAbove) <= s.progressTotal)
+                ((struct.progress * 100 / energyPercentageAbove) <= struct.progressTotal)
             ) {
                 return false;
             }
