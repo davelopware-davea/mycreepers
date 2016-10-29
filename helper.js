@@ -89,22 +89,39 @@ module.exports = {
     },
     findMyClosestEnergyStoreToFill: function(pos) {
         var target = null;
-        target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                filter: (c) => ((c.structureType === STRUCTURE_EXTENSION))
-    });
-        if (target) return target;
-
-        target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                filter: (c) => ((c.structureType === STRUCTURE_CONTAINER))
-    });
-        if (target) return target;
-
-        target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                filter: (c) => ((c.structureType === STRUCTURE_STORAGE))
-    });
-        if (target) return target;
-
-        return null;
+        if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+            filter: function (s) {
+                return ((s.structureType === STRUCTURE_EXTENSION) &&
+                    (
+                        (energyPercentageBelow && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
+                        ||
+                        (energyPercentageAbove && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
+                    )
+                )
+            }
+        });
+        if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+            filter: function (s) {
+                return ((s.structureType === STRUCTURE_CONTAINER) &&
+                    (
+                        (energyPercentageBelow && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
+                        ||
+                        (energyPercentageAbove && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
+                    )
+                )
+            }
+        });
+        if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+            filter: function (s) {
+                return ((s.structureType === STRUCTURE_STORAGE) &&
+                    (
+                        (energyPercentageBelow && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
+                        ||
+                        (energyPercentageAbove && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
+                    )
+                )
+            }
+        });
     },
     findMyClosestEnergyStoreToUse: function(pos) {
         var target = null;
