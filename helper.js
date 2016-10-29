@@ -24,6 +24,7 @@ module.exports = {
     },
 
     harvestSource: function(creep, source) {
+        console.log(creep.name+' harvesting '+source.toString()+' '+source.pos);
         creep.say('+');
         if (this.getEnergyFrom(creep, source) == ERR_NOT_IN_RANGE) {
             // check if we're in a holding pattern
@@ -62,6 +63,7 @@ module.exports = {
         }
     },
     getEnergyFrom: function(creep, struct) {
+        console.log(creep.name+' getting energy from '+struct.toString()+' '+struct.pos);
         if (struct instanceof Source) {
             return creep.harvest(struct);
         }
@@ -73,6 +75,7 @@ module.exports = {
         }
     },
     putEnergyInto: function(creep, target) {
+        console.log(creep.name+' putting energy into '+target.toString()+' '+target.pos);
         if (target.structureType === STRUCTURE_CONTROLLER) {
             return creep.upgradeController(target);
         }
