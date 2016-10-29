@@ -116,11 +116,11 @@ module.exports = {
             if (struct.structureType !== structType) {
                 return false;
             } else if (energyPercentageBelow !== null &&
-                ((s.store * 100 / energyPercentageBelow) >= s.storeCapacity)
+                ((struct.store * 100 / energyPercentageBelow) >= struct.storeCapacity)
             ) {
                 return false;
             } else if (energyPercentageAbove !== null &&
-                ((s.store * 100 / energyPercentageAbove) <= s.storeCapacity)
+                ((struct.store * 100 / energyPercentageAbove) <= struct.storeCapacity)
             ) {
                 return false;
             }
