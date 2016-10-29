@@ -39,8 +39,8 @@ var serviceSpawner = {
         var spawn = Game.spawns['Spawn1'];
         var role = serviceForeman.getSpawnNeededRole();
         var memory = {
-            'type': 'worker',
-            'role': role
+            type: 'worker',
+            role: role
         };
         var spawnBodyOrder = [
             [MOVE,WORK,WORK,WORK,CARRY,CARRY,CARRY],

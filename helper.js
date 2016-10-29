@@ -147,17 +147,17 @@ module.exports = {
         var target = null;
         if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (s) {
-                return this.structureTypeAndEnergyBetween(s, STRUCTURE_EXTENSION, energyPercentageBelow, energyPercentageAbove);
+                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_EXTENSION, energyPercentageBelow, energyPercentageAbove);
             }
         });
         if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (s) {
-                return this.structureTypeAndEnergyBetween(s, STRUCTURE_CONTAINER, energyPercentageBelow, energyPercentageAbove);
+                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_CONTAINER, energyPercentageBelow, energyPercentageAbove);
             }
         });
         if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (s) {
-                return this.structureTypeAndEnergyBetween(s, STRUCTURE_STORAGE, energyPercentageBelow, energyPercentageAbove);
+                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_STORAGE, energyPercentageBelow, energyPercentageAbove);
             }
         });
     },
@@ -166,21 +166,21 @@ module.exports = {
         var target = null;
         target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function(s) {
-                return this.structureTypeAndEnergyBetween(s, STRUCTURE_STORAGE, 100, null);
+                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_STORAGE, 100, null);
             }
         });
         if (target) return target;
 
         target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function(s) {
-                return this.structureTypeAndEnergyBetween(s, STRUCTURE_CONTAINER, 100, null);
+                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_CONTAINER, 100, null);
             }
         });
         if (target) return target;
 
         target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function(s) {
-                return this.structureTypeAndEnergyBetween(s, STRUCTURE_EXTENSION, 100, null);
+                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_EXTENSION, 100, null);
             }
         });
         if (target) return target;
@@ -208,7 +208,7 @@ module.exports = {
         var target = null;
         target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function(s) {
-                return this.structureTypeAndEnergyBetween(s, structType, energyPercentageBelow, energyPercentageAbove);
+                return helper.structureTypeAndEnergyBetween(s, structType, energyPercentageBelow, energyPercentageAbove);
             }
         });
         return target;
