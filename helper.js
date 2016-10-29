@@ -62,7 +62,7 @@ module.exports = {
         }
     },
     getEnergyFrom: function(creep, struct) {
-        if (struct.ticksToRegeneration !== undefined) {
+        if (struct instanceof Source) {
             return creep.harvest(struct);
         }
         if (struct.structureType === STRUCTURE_STORAGE ||
