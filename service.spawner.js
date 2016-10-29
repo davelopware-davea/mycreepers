@@ -42,8 +42,18 @@ var serviceSpawner = {
             'type': 'worker',
             'role': role
         };
-//        spawn.createCreep([MOVE,MOVE,WORK,CARRY], undefined, memory);
-        spawn.createCreep([MOVE,WORK,WORK,WORK,CARRY,CARRY,CARRY], undefined, memory);
+        var spawnBodyOrder = [
+            [MOVE,WORK,WORK,WORK,CARRY,CARRY,CARRY],
+            [MOVE,WORK,WORK,CARRY,CARRY],
+            [MOVE,WORK,CARRY]
+        ];
+        for (var idx in spawnBodyOrder) {
+            var body = spawnBodyOrder[idx];
+            if (spawn.canCreateCreep(body, undefined, memory)) {
+                spawn.createCreep(body, undefined, memory);
+                return;
+            }
+        }
     },
 
     spawnNewSpecialCreep: function() {
