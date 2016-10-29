@@ -11,7 +11,7 @@ var roleHarvester = {
         }
         if (creep.memory.gather) {
             if(creep.carry.energy < creep.carryCapacity) {
-                var source = helper.findMyClosestRawSource(creep.pos);
+                var source = helper.findClosestRawSource(creep.pos);
                 helper.harvestSource(creep, source);
             } else {
                 creep.memory.gather = false;
