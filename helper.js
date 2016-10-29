@@ -143,44 +143,38 @@ module.exports = {
     },
     findMyClosestRechargeable: function(pos, structType, energyPercentageBelow, energyPercentageAbove) {
         var target = null;
-        if (structType) {
-            target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                filter: function(s) {
-                    if (s.structureType === structType) {
-                        if (structType === STRUCTURE_STORAGE ||
-                            structType === STRUCTURE_CONTAINER
-                        ) {
-                            return (
-                                (energyPercentageBelow && ((s.store * 100 / energyPercentageBelow) < s.storeCapacity))
-                                    ||
-                                (energyPercentageAbove && ((s.store * 100 / energyPercentageAbove) > s.storeCapacity))
-                            );
-                        }
-                        if (structType === STRUCTURE_EXTENSION ||
-                            structType === STRUCTURE_TOWER ||
-                            structType === STRUCTURE_SPAWN
-                        ) {
-                            return (
-                                (energyPercentageBelow && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
+        target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+            filter: function(s) {
+                if (s.structureType === structType) {
+                    if (structType === STRUCTURE_STORAGE ||
+                        structType === STRUCTURE_CONTAINER
+                    ) {
+                        return (
+                            (energyPercentageBelow && ((s.store * 100 / energyPercentageBelow) < s.storeCapacity))
                                 ||
-                                (energyPercentageAbove && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
-                            );
-                        }
-                        if (structType === STRUCTURE_CONTROLLER) {
-                            return (
-                                (energyPercentageBelow && ((s.progress * 100 / energyPercentageBelow) < s.progressTotal))
-                                ||
-                                (energyPercentageAbove && ((s.progress * 100 / energyPercentageAbove) > s.progressTotal))
-                            );
-                        }
+                            (energyPercentageAbove && ((s.store * 100 / energyPercentageAbove) > s.storeCapacity))
+                        );
+                    }
+                    if (structType === STRUCTURE_EXTENSION ||
+                        structType === STRUCTURE_TOWER ||
+                        structType === STRUCTURE_SPAWN
+                    ) {
+                        return (
+                            (energyPercentageBelow && ((s.energy * 100 / energyPercentageBelow) < s.energyCapacity))
+                            ||
+                            (energyPercentageAbove && ((s.energy * 100 / energyPercentageAbove) > s.energyCapacity))
+                        );
+                    }
+                    if (structType === STRUCTURE_CONTROLLER) {
+                        return (
+                            (energyPercentageBelow && ((s.progress * 100 / energyPercentageBelow) < s.progressTotal))
+                            ||
+                            (energyPercentageAbove && ((s.progress * 100 / energyPercentageAbove) > s.progressTotal))
+                        );
                     }
                 }
-            });
-        } else {
-            target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-                    filter: (s) => ((s.hits * 100 / hitsPercentage) < s.hitsMax)
+            }
         });
-        }
         return target;
     },
     findMyClosestRepairable: function(pos, structType, hitsPercentage) {
