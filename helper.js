@@ -84,7 +84,7 @@ module.exports = {
             target.structureType === STRUCTURE_SPAWN ||
             target.structureType === STRUCTURE_TOWER
         ) {
-            return creep.transfer(struct, RESOURCE_ENERGY);
+            return creep.transfer(target, RESOURCE_ENERGY);
         }
     },
     structureTypeAndEnergyBetween: function(struct, structType, energyPercentageBelow, energyPercentageAbove) {
