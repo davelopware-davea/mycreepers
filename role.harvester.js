@@ -30,6 +30,8 @@ var roleHarvester = {
                     creep.moveTo(target);
                     console.log(creep.name+' moving to store '+target.pos+' to replenish it');
                 }
+            } else {
+                console.log(creep.name+' no stores to fill?');
             }
         }
     }
