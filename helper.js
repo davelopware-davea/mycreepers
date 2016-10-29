@@ -86,17 +86,17 @@ module.exports = {
     },
     findMyClosestEnergyStore: function(pos) {
         var target = null;
-        target = pos.findClosestByRange(FIND_MY_STRUCTURE, {
+        target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
                 filter: (c) => ((c.structureType === STRUCTURE_STORAGE))
     });
         if (target) return target;
 
-        target = pos.findClosestByRange(FIND_MY_STRUCTURE, {
+        target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
                 filter: (c) => ((c.structureType === STRUCTURE_CONTAINER))
     });
         if (target) return target;
 
-        target = pos.findClosestByRange(FIND_MY_STRUCTURE, {
+        target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
                 filter: (c) => ((c.structureType === STRUCTURE_EXTENSION))
     });
         if (target) return target;
