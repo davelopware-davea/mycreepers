@@ -5,7 +5,8 @@ var serviceCodex = require('service.codex');
 var roleRemoteHarvester = {
 
     spawn: function(spawner, memory) {
-        spawner.createCreep([MOVE,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY], undefined, memory);
+        // spawner.createCreep([MOVE,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY], undefined, memory);
+        spawner.createCreep([MOVE,WORK,CARRY,CARRY,CARRY], undefined, memory);
     },
 
     /** @param {Creep} creep **/

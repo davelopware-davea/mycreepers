@@ -33,10 +33,10 @@ var serviceSpawner = {
         if (workerCount < serviceForeman.targetCreeperCount()) {
             this.spawnNewWorkerCreep();
         }
-        if (remoteHarvesterCount < 4) {
+        if (remoteHarvesterCount < 6) {
             this.spawnNewSpecialRemoteHarvesterCreep();
         }
-        if (remoteHarvesterCount < 1) {
+        if (roadMaintainCount < 1) {
             this.spawnNewSpecialRoadMaintainCreep("Base_1", "drinkhere");
         }
 

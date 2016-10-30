@@ -61,15 +61,15 @@ module.exports.loop = function () {
 
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
-        if (creep.memory.type !== 'worker') {
+        if (creep.memory.type !== 'worker' && creep.memory.type !== 'special') {
             continue;
         }
         var role = creep.memory.role;
-        if (role) {
+        if (role && roles[role]) {
             roles[role].run(creep);
         }
         var srole = creep.memory.srole;
-        if (srole) {
+        if (srole && sroles[srole]) {
             sroles[srole].run(creep);
         }
     }
