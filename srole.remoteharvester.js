@@ -37,14 +37,14 @@ var roleRemoteHarvester = {
                 creep.say('\\');
                 creep.memory.gather = true;
             } else {
-                var constructionSite = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
-                if (constructionSite) {
-                    creep.say('*');
-                    if (creep.build(constructionSite) == ERR_NOT_IN_RANGE) {
-                        creep.say('->*');
-                        creep.moveTo(constructionSite.pos);
-                    }
-                } else {
+                // var constructionSite = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+                // if (constructionSite) {
+                //     creep.say('*');
+                //     if (creep.build(constructionSite) == ERR_NOT_IN_RANGE) {
+                //         creep.say('->*');
+                //         creep.moveTo(constructionSite.pos);
+                //     }
+                // } else {
                     var target = Game.flags.Base_1.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_STORAGE)});
                     // var target = Game.flags.Base_1.pos.findClosestByPath(FIND_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_CONTROLLER)});
                     creep.say('@');
@@ -52,7 +52,7 @@ var roleRemoteHarvester = {
                         creep.say('->@');
                         creep.moveTo(target.pos);
                     }
-                }
+                // }
             }
         }
     }
