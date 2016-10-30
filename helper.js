@@ -153,12 +153,12 @@ module.exports = {
         });
         if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (s) {
-                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_CONTAINER, energyPercentageBelow, energyPercentageAbove);
+                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_STORAGE, energyPercentageBelow, energyPercentageAbove);
             }
         });
         if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function (s) {
-                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_STORAGE, energyPercentageBelow, energyPercentageAbove);
+                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_CONTAINER, energyPercentageBelow, energyPercentageAbove);
             }
         });
         return target;
