@@ -12,8 +12,12 @@ var roleHarvester = {
         if (creep.memory.gather) {
             if(creep.carry.energy < creep.carryCapacity) {
                 var store = helper.findMyClosestEnergyStoreToUse(creep.pos);
-                creep.say('loading from store');
-                helper.harvestSource(creep, store);
+                if (store !== null) {
+                    creep.say('loading from store');
+                    helper.harvestSource(creep, store);
+                } else {
+                    creep.say('HELP Store');
+                }
             } else {
                 creep.memory.gather = false;
                 console.log(creep.name+' switching to replenish');
