@@ -51,8 +51,8 @@ var serviceSpawner = {
             role: role
         };
         var spawnBodyOrder = [
-            [MOVE,WORK,WORK,WORK,CARRY,CARRY,CARRY],
-            [MOVE,WORK,WORK,CARRY,CARRY],
+            [MOVE,WORK,WORK,WORK,CARRY,CARRY],
+            [MOVE,WORK,WORK,CARRY],
             [MOVE,WORK,CARRY]
         ];
         for (var idx in spawnBodyOrder) {
