@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2580169a-1762-4afa-bfe5-3137f09cbb58" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/srole.remoteharvester.js" afterPath="$PROJECT_DIR$/srole.remoteharvester.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/helper.js" afterPath="$PROJECT_DIR$/helper.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/role.replenisher.js" afterPath="$PROJECT_DIR$/role.replenisher.js" />
     </list>
     <ignored path="screeps.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,8 +29,8 @@
       <file leaf-file-name="helper.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/helper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+            <state relative-caret-position="223">
+              <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -89,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="role.replenisher.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="role.replenisher.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/role.replenisher.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="216">
-              <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -111,16 +112,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="srole.remoteharvester.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="srole.remoteharvester.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/srole.remoteharvester.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="295">
               <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-              <folding>
-                <marker date="1477864754326" expanded="true" signature="397:2319" ph="{...}" />
-                <marker date="1477864754326" expanded="true" signature="1130:2309" ph="{...}" />
-                <marker date="1477864754326" expanded="true" signature="1312:2295" ph="{...}" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -157,10 +154,10 @@
         <option value="$PROJECT_DIR$/srole.roadmaintain.js" />
         <option value="$PROJECT_DIR$/service.foreman.js" />
         <option value="$PROJECT_DIR$/main.js" />
-        <option value="$PROJECT_DIR$/helper.js" />
         <option value="$PROJECT_DIR$/service.spawner.js" />
-        <option value="$PROJECT_DIR$/role.replenisher.js" />
         <option value="$PROJECT_DIR$/srole.remoteharvester.js" />
+        <option value="$PROJECT_DIR$/helper.js" />
+        <option value="$PROJECT_DIR$/role.replenisher.js" />
       </list>
     </option>
   </component>
@@ -293,7 +290,7 @@
       <workItem from="1477599196757" duration="5594000" />
       <workItem from="1477643858958" duration="49000" />
       <workItem from="1477645225240" duration="30000" />
-      <workItem from="1477687092437" duration="37134000" />
+      <workItem from="1477687092437" duration="37341000" />
     </task>
     <task id="LOCAL-00001" summary="bring last nights direct hacks in the browser back into the code base">
       <created>1477643371537</created>
@@ -306,7 +303,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42807000" />
+    <option name="totallyTimeSpent" value="43014000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="43" y="21" width="1323" height="747" extended-state="6" />
@@ -663,33 +660,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/role.replenisher.js">
+    <entry file="file://$PROJECT_DIR$/srole.remoteharvester.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+        <state relative-caret-position="295">
+          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/helper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+        <state relative-caret-position="223">
+          <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/srole.remoteharvester.js">
+    <entry file="file://$PROJECT_DIR$/role.replenisher.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding>
-            <marker date="1477864754326" expanded="true" signature="397:2319" ph="{...}" />
-            <marker date="1477864754326" expanded="true" signature="1130:2309" ph="{...}" />
-            <marker date="1477864754326" expanded="true" signature="1312:2295" ph="{...}" />
-          </folding>
+        <state relative-caret-position="216">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
