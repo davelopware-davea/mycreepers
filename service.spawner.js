@@ -25,7 +25,7 @@ var serviceSpawner = {
             if (creep.memory.type == 'special') {
                 if (creep.memory.srole == 'remoteharvester') {
                     remoteHarvesterCount++;
-                } else if (creep.memory.srole == 'remoteharvester') {
+                } else if (creep.memory.srole == 'roadmaintain') {
                     roadMaintainCount++;
                 }
             }
