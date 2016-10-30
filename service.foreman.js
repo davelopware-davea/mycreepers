@@ -90,24 +90,24 @@ var serviceForeman = {
 
         if (status.energyNeeded > 0) {
             needs = {
-                'harvester': 7,
-                'replenisher': 2,
-                'builder': 0,
-                'upgrader': 0
-            };
-        } else if (status.buildingNeeded) {
-            needs = {
-                'harvester': 5,
-                'replenisher': 2,
-                'builder': 2,
-                'upgrader': 0
-            };
-        } else {
-            needs = {
                 'harvester': 4,
                 'replenisher': 3,
                 'builder': 1,
                 'upgrader': 1
+            };
+        } else if (status.buildingNeeded) {
+            needs = {
+                'harvester': 4,
+                'replenisher': 2,
+                'builder': 2,
+                'upgrader': 1
+            };
+        } else {
+            needs = {
+                'harvester': 4,
+                'replenisher': 2,
+                'builder': 1,
+                'upgrader': 2
             };
         }
 
