@@ -29,6 +29,12 @@ var roles = {
     'remoteharvester': roleRemoteHarvester
 };
 
+var sroleRoadMaintain = require('srole.roadmaintain');
+
+var sroles = {
+    'roadmaintain': sroleRoadMaintain
+};
+
 var troleRepairer = require('trole.repairer');
 
 var troles = {
@@ -55,12 +61,16 @@ module.exports.loop = function () {
 
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
-        if (creep.memory.type !== 'worker' && creep.memory.type !== 'special') {
-            break;
+        if (creep.memory.type !== 'worker') {
+            continue;
         }
         var role = creep.memory.role;
         if (role) {
             roles[role].run(creep);
+        }
+        var srole = creep.memory.srole;
+        if (srole) {
+            sroles[srole].run(creep);
         }
     }
 }

@@ -15,21 +15,29 @@ var serviceSpawner = {
 
         var workerCount = 0;
         var remoteHarvesterCount = 0;
+        var roadMaintainCount = 0;
         var creeps = Game.creeps;
         for (var cn in creeps) {
             var creep = creeps[cn];
             if (creep.memory.type == 'worker') {
                 workerCount++;
             }
-            if (creep.memory.type == 'special' && creep.memory.role == 'remoteharvester') {
-                remoteHarvesterCount++;
+            if (creep.memory.type == 'special') {
+                if (creep.memory.srole == 'remoteharvester') {
+                    remoteHarvesterCount++;
+                } else if (creep.memory.srole == 'remoteharvester') {
+                    roadMaintainCount++;
+                }
             }
         }
         if (workerCount < serviceForeman.targetCreeperCount()) {
             this.spawnNewWorkerCreep();
         }
-        if (remoteHarvesterCount < 2) {
-            this.spawnNewSpecialCreep('remoteharvester');
+        if (remoteHarvesterCount < 4) {
+            this.spawnNewSpecialRemoteHarvesterCreep();
+        }
+        if (remoteHarvesterCount < 1) {
+            this.spawnNewSpecialRoadMaintainCreep("Base_1", "drinkhere");
         }
 
     },
@@ -61,16 +69,30 @@ var serviceSpawner = {
         }
     },
 
-    spawnNewSpecialCreep: function() {
-        console.log('spawning special creeper');
+    spawnNewSpecialRemoteHarvesterCreep: function() {
+        console.log('spawning special creeper Remote Harvester');
         var spawn = Game.spawns['Spawn1'];
-        var role = 'remoteharvester';
+        var srole = 'remoteharvester';
         var memory = {
             'type': 'special',
-            'role': role
+            'srole': srole
         };
-        var roleRemoteHarvester = require('role.remoteharvester');
-        roleRemoteHarvester.spawn(spawn, memory);
+        var sroleRemoteHarvester = require('srole.remoteharvester');
+        sroleRemoteHarvester.spawn(spawn, memory);
+    },
+
+    spawnNewSpecialRoadMaintainCreep: function(flagBase, flagRemote) {
+        console.log('spawning special creeper Road Maintainer');
+        var spawn = Game.spawns['Spawn1'];
+        var srole = 'roadmaintain';
+        var memory = {
+            'type': 'special',
+            'srole': srole,
+            'flagBase': flagBase,
+            'flagRemote': flagRemote
+        };
+        var sroleRoadMaintain = require('srole.roadmaintain');
+        sroleRoadMaintain.spawn(spawn, memory);
     }
 
 };

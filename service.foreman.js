@@ -90,24 +90,24 @@ var serviceForeman = {
 
         if (status.energyNeeded > 0) {
             needs = {
-                'harvester': 3,
-                'replenisher': 4,
-                'builder': 1,
-                'upgrader': 1
+                'harvester': 7,
+                'replenisher': 2,
+                'builder': 0,
+                'upgrader': 0
             };
         } else if (status.buildingNeeded) {
             needs = {
-                'harvester': 1,
-                'replenisher': 1,
-                'builder': 3,
-                'upgrader': 4
+                'harvester': 5,
+                'replenisher': 2,
+                'builder': 2,
+                'upgrader': 0
             };
         } else {
             needs = {
-                'harvester': 2,
-                'replenisher': 2,
-                'builder': 0,
-                'upgrader': 5
+                'harvester': 4,
+                'replenisher': 3,
+                'builder': 1,
+                'upgrader': 1
             };
         }
 
@@ -119,15 +119,24 @@ var serviceForeman = {
 
         var spawner = Game.spawns['Spawn1'];
         var energyNeeders = spawner.room.find(FIND_MY_STRUCTURES, {
-                    filter: (structure) => {
-                    return (
+            filter: function(structure) {
+                return
+                (
+                    (
                         structure.structureType == STRUCTURE_EXTENSION ||
-                structure.structureType == STRUCTURE_SPAWN ||
-                structure.structureType == STRUCTURE_TOWER
-            ) && structure.energy < structure.energyCapacity;
-    }
-    });
-        status.energyNeeded = (energyNeeders !== null && energyNeeders.length > 0); //spawner.energyCapacity - spawner.energy;
+                        structure.structureType == STRUCTURE_SPAWN ||
+                        structure.structureType == STRUCTURE_TOWER
+                    )
+                    && structure.energy < structure.energyCapacity
+                );
+            }
+        });
+        var baseStorage = spawner.pos.findClosestByRange(FIND_MY_STRUCTURES, function(s) {
+            return s.structureType === STRUCTURE_STORAGE;
+        });
+
+        status.energyNeeded = baseStorage.energy < 200;
+        //status.energyNeeded = (energyNeeders !== null && energyNeeders.length > 0); //spawner.energyCapacity - spawner.energy;
 
         var nextToRepair = this.nextThingToRepair(spawner.pos, true);
         var nextToBuild = this.nextThingToBuild(spawner.pos);
