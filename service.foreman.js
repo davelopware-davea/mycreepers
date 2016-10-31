@@ -29,6 +29,9 @@ var serviceForeman = {
 
         var defaultRole = this.getDefaultRole(status);
         var neededRoles = this.determineNeededRoles(status);
+// console.log(JSON.stringify(neededRoles));
+        var neededReplenishers = this.determineNeededReplenishers(status);
+console.log(JSON.stringify(neededReplenishers));
 
         for (var name in creeps) {
             var creep = creeps[name];
@@ -37,10 +40,22 @@ var serviceForeman = {
             }
 
             var neededRole = defaultRole;
+            var neededPrefer = STRUCTURE_TOWER;
             for (var role in neededRoles) {
                 if (neededRoles[role] > 0) {
                     neededRole = role;
                     neededRoles[role] = neededRoles[role] - 1;
+
+                    if (neededRole == 'replenisher') {
+                        for (var prefer in neededReplenishers) {
+                            if (neededReplenishers[prefer] > 0) {
+                                neededPrefer = prefer;
+                                neededReplenishers[prefer] = neededReplenishers[prefer] - 1;
+                                break;
+                            }
+                        }
+                    }
+
                     break;
                 }
             }
@@ -48,10 +63,12 @@ var serviceForeman = {
             if (creep.memory.role != neededRole) {
                 console.log('Turning '+creep.name+' from '+creep.memory.role+' to '+neededRole);
                 creep.memory.role = neededRole;
-                creep.say('=' + defaultRole);
+                creep.say('=' + neededRole);
+            }
+            if (role == 'replenisher') {
+                creep.memory.prefer = neededPrefer;
             }
         }
-
     },
 
     getDefaultRole: function(status) {
@@ -98,19 +115,29 @@ var serviceForeman = {
         } else if (status.buildingNeeded) {
             needs = {
                 'harvester': 4,
-                'replenisher': 2,
-                'builder': 2,
+                'replenisher': 3,
+                'builder': 1,
                 'upgrader': 1
             };
         } else {
             needs = {
                 'harvester': 4,
-                'replenisher': 2,
+                'replenisher': 3,
                 'builder': 1,
-                'upgrader': 2
+                'upgrader': 1
             };
         }
+        return needs;
+    },
 
+    determineNeededReplenishers: function(status) {
+        var needs = {};
+
+        needs = {
+            STRUCTURE_CONTAINER: 1,
+            STRUCTURE_TOWER: 1,
+            STRUCTURE_SPAWN: 1
+        };
         return needs;
     },
 

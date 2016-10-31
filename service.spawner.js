@@ -14,6 +14,8 @@ var serviceSpawner = {
         // console.log('Spawner ------------------------------------------------');
 
         var workerCount = 0;
+        var workerPreferSpawn = 0;
+        var firstReplenisher = null;
         var remoteHarvesterCount = 0;
         var roadMaintainCount = 0;
         var creeps = Game.creeps;
@@ -21,6 +23,12 @@ var serviceSpawner = {
             var creep = creeps[cn];
             if (creep.memory.type == 'worker') {
                 workerCount++;
+                if (creep.memory.prefer == STRUCTURE_SPAWN){
+                    workerPreferSpawn++;
+                }
+                if (firstReplenisher==null && creep.memory.role == 'replenisher') {
+                    firstReplenisher = creep;
+                }
             }
             if (creep.memory.type == 'special') {
                 if (creep.memory.srole == 'remoteharvester') {
@@ -33,7 +41,10 @@ var serviceSpawner = {
         if (workerCount < serviceForeman.targetCreeperCount()) {
             this.spawnNewWorkerCreep();
         }
-        if (remoteHarvesterCount < 6) {
+        if (workerPreferSpawn < 1 && firstReplenisher) {
+            firstReplenisher.memory.prefer = STRUCTURE_SPAWN;
+        }
+        if (remoteHarvesterCount < 10) {
             this.spawnNewSpecialRemoteHarvesterCreep();
         }
         if (roadMaintainCount < 1) {

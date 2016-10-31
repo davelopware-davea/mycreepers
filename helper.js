@@ -12,9 +12,10 @@ module.exports = {
         console.log("Creeps:");
         for (var name in Game.creeps) {
             var creep = Game.creeps[name];
-            var type = creep.memory.type ? 'type='+creep.memory.type : 'type=unknown';
-            var role = creep.memory.role ? 'role='+creep.memory.role : 'srole='+creep.memory.srole;
-            console.log(' '+name+': '+type+' '+role);
+            var type = creep.memory.type ? ' type='+creep.memory.type : ' type=unknown';
+            var role = creep.memory.role ? ' role='+creep.memory.role : ' srole='+creep.memory.srole;
+            var prefer = creep.memory.role == 'replenisher' ? ' prefer='+creep.memory.prefer : '';
+            console.log(' '+name+': '+type+role+prefer);
         }
     },
     log_structs: function(structs) {

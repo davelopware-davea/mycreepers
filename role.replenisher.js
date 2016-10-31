@@ -30,9 +30,9 @@ var roleHarvester = {
             if (creep.memory.prefer) {
                 target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, creep.memory.prefer, 10, null);
             }
-            if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_TOWER, 10, null);
             if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_SPAWN, 100, 0);
-            // if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_CONTROLLER, 100, 0);
+            if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_TOWER, 10, null);
+            if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_CONTROLLER, 100, 0);
 
             if (target !== null) {
                 creep.say('replenishing structure');
