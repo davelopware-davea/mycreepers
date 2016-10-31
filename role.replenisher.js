@@ -29,18 +29,18 @@ var roleHarvester = {
             var target = null;
             // if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_EXTENSION, 100, 0);
             if (creep.memory.prefer) {
-                target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, creep.memory.prefer, 10, null);
+                target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, creep.memory.prefer, 100, null);
                 var tname = target ? target.toString() : target;
-                console.log(creep.name + ' closest prefered rechargeable ='+tname);
             }
-            if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_SPAWN, 100, 0);
+            if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_EXTENSION, 100, null);
+            if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_SPAWN, 100, null);
             if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_TOWER, 10, null);
-            if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_CONTROLLER, 100, 0);
+            if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_CONTROLLER, 100, null);
 
             if (target !== null) {
-                creep.say('replenishing structure');
+                creep.say('*');
                 if(helper.putEnergyInto(creep, target) == ERR_NOT_IN_RANGE) {
-                    creep.say('->struct');
+                    creep.say('->*');
                     creep.moveTo(target);
                     console.log(creep.name+' moving to '+target.pos+' to replenish it');
                 }

@@ -134,11 +134,10 @@ console.log(JSON.stringify(neededReplenishers));
     determineNeededReplenishers: function(status) {
         var needs = {};
 
-        needs = {
-            STRUCTURE_EXTENSION: 1,
-            STRUCTURE_TOWER: 1,
-            STRUCTURE_SPAWN: 1
-        };
+        needs = {};
+        needs[STRUCTURE_EXTENSION] = 1;
+        needs[STRUCTURE_TOWER] = 1;
+        needs[STRUCTURE_SPAWN] = 1;
         return needs;
     },
 
