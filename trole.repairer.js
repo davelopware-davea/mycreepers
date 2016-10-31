@@ -8,6 +8,21 @@ var towerRoleRepairer = {
         var nextToRepair = null;
 
         var nearestBase = Game.flags['Base_1'];
+    
+        //var attack = true;
+        var attack = false;
+        
+        if (attack) {
+            var hostiles = nearestBase.room.find(FIND_HOSTILE_CREEPS);
+            if(hostiles.length > 0) {
+                // var username = hostiles[0].owner.username;
+                // Game.notify(`User ${username} spotted in room ${nearestBase.room.name}`);
+                tower.attack(hostiles[0]);
+            }
+            return;
+        }
+
+        
         nextToRepair = this.nextThingToRepair(tower.pos, true);
         if(nextToRepair) {
             console.log('tower essential repair '+nextToRepair.pos);

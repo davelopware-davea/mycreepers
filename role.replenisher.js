@@ -27,8 +27,11 @@ var roleHarvester = {
             console.log(creep.name+' switching to gather');
         } else {
             var target = null;
+            // if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_EXTENSION, 100, 0);
             if (creep.memory.prefer) {
                 target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, creep.memory.prefer, 10, null);
+                var tname = target ? target.toString() : target;
+                console.log(creep.name + ' closest prefered rechargeable ='+tname);
             }
             if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_SPAWN, 100, 0);
             if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_TOWER, 10, null);

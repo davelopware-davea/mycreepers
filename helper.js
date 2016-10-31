@@ -84,6 +84,7 @@ module.exports = {
         }
         if (target.structureType === STRUCTURE_STORAGE ||
             target.structureType === STRUCTURE_CONTAINER ||
+            target.structureType === STRUCTURE_EXTENSION ||
             target.structureType === STRUCTURE_SPAWN ||
             target.structureType === STRUCTURE_TOWER
         ) {

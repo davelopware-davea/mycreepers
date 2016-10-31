@@ -67,6 +67,7 @@ console.log(JSON.stringify(neededReplenishers));
             }
             if (role == 'replenisher') {
                 creep.memory.prefer = neededPrefer;
+                // creep.memory.prefer = STRUCTURE_TOWER;
             }
         }
     },
@@ -134,7 +135,7 @@ console.log(JSON.stringify(neededReplenishers));
         var needs = {};
 
         needs = {
-            STRUCTURE_CONTAINER: 1,
+            STRUCTURE_EXTENSION: 1,
             STRUCTURE_TOWER: 1,
             STRUCTURE_SPAWN: 1
         };
