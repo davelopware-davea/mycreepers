@@ -28,34 +28,43 @@ var sroleRoadMaintain = {
                 creep.memory.direction = 'out';
             } else {
                 if (creep.room.owner === undefined || creep.room.owner === myOwner) {
+                    creep.say('&');
                     if (creep.room.createConstructionSite(creep.pos, STRUCTURE_ROAD) == ERR_INVALID_TARGET) {
                         var construction = null;
                         constructions = creep.pos.findInRange(FIND_CONSTRUCTION_SITES, 2);
                         if (constructions && constructions.length > 0) {
                             construction = constructions[0];
+                            creep.say('&');
                             creep.build(construction);
                         } else {
+                            creep.say('#');
                             constructions = creep.pos.findInRange(FIND_CONSTRUCTION_SITES, 1);
                             if (constructions && constructions.length > 0) {
+                                creep.say('~>#');
                                 creep.moveTo(basePos);
                             } else {
                                 var roads = creep.pos.findInRange(FIND_STRUCTURES, 2, {filter: (s) => s.structureType === STRUCTURE_ROAD});
                                 if (roads && roads.length > 0) {
                                     road = roads[0];
                                     if ((road.hits+100) < road.hitsMax) {
+                                        creep.say('R');
                                         creep.repair(road);
                                     } else {
+                                        creep.say('->r');
                                         creep.moveTo(basePos);
                                     }
                                 } else {
+                                    creep.say('->r');
                                     creep.moveTo(basePos);
                                 }
                             }
                         }
                     } else {
+                        creep.say('->r');
                         creep.moveTo(basePos);
                     }
                 } else {
+                    creep.say('->r');
                     creep.moveTo(basePos);
                 }
             }

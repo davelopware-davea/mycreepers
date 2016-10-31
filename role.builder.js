@@ -9,11 +9,11 @@ var roleBuilder = {
 
         if(creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
-            creep.say('harvesting');
+            creep.say('+');
         }
         if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
             creep.memory.building = true;
-            creep.say('building');
+            creep.say('&');
         }
 
         if(creep.memory.building) {
@@ -30,7 +30,9 @@ var roleBuilder = {
             buildTarget = foreman.nextThingToBuild(creep.pos, true);
             if (buildTarget) {
                 console.log(creep.name+' build '+buildTarget.pos);
+                creep.say('#');
                 if(creep.build(buildTarget) == ERR_NOT_IN_RANGE) {
+                    creep.say('->#');
                     creep.moveTo(buildTarget);
                 }
                 return;
