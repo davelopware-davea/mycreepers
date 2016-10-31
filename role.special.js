@@ -30,12 +30,12 @@ var roleSpecial = {
             }
         }
 
-	},
+    },
 
-	discover: function(creep) {
-	    if (Memory.discoveries === undefined) {
-	        Memory.discoveries = {};
-	    }
+    discover: function(creep) {
+        if (Memory.discoveries === undefined) {
+            Memory.discoveries = {};
+        }
 
         var sources = creep.room.find(FIND_SOURCES);
         for (var sourceName in sources) {
@@ -51,7 +51,7 @@ var roleSpecial = {
             creep.say('?' + source.name);
             creep.moveTo(source);
         }
-	}
+    }
 };
 
 module.exports = roleSpecial;

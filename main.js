@@ -1,7 +1,7 @@
 /*
-** By Dave Amphlett
-**
-*/
+ ** By Dave Amphlett
+ **
+ */
 
 var helper = require('helper');
 
@@ -14,43 +14,63 @@ var services = {
 }
 
 var roleHarvester = require('role.harvester');
+var roleReplenisher = require('role.replenisher');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleSpecial = require('role.special');
 
 var roles = {
     'harvester': roleHarvester,
+    'replenisher': roleReplenisher,
     'upgrader': roleUpgrader,
     'builder': roleBuilder,
     'special': roleSpecial
 };
 
+var sroleRemoteHarvester = require('srole.remoteharvester');
+var sroleRoadMaintain = require('srole.roadmaintain');
+
+var sroles = {
+    'roadmaintain': sroleRoadMaintain,
+    'remoteharvester': sroleRemoteHarvester
+};
+
+var troleRepairer = require('trole.repairer');
+
+var troles = {
+    'repairer': troleRepairer
+};
+
 module.exports.loop = function () {
-    // console.log('Loop ===================================================');
-
-    // var tower = Game.getObjectById('e31263ea5e485b6b4569b161');
-    // if(tower) {
-    //     var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-    //         filter: (structure) => structure.hits < structure.hitsMax
-    //     });
-    //     if(closestDamagedStructure) {
-    //         tower.repair(closestDamagedStructure);
-    //     }
-
-    //     var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-    //     if(closestHostile) {
-    //         tower.attack(closestHostile);
-    //     }
-    // }
-
+    console.log('Loop ===================================================');
+    
     for(var serviceName in services) {
         var service = services[serviceName];
         service.run();
     }
 
+    var myStructures = Game.structures;
+    for(var idx in myStructures) {
+        var struct = myStructures[idx];
+        // console.log('tfs:'+struct.pos);
+        if (struct.structureType === STRUCTURE_TOWER) {
+            var tower = struct;
+            troles['repairer'].run(tower);
+        }
+    }
+
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
+        if (creep.memory.type !== 'worker' && creep.memory.type !== 'special') {
+            continue;
+        }
         var role = creep.memory.role;
-        roles[role].run(creep);
+        if (role && roles[role]) {
+            roles[role].run(creep);
+        }
+        var srole = creep.memory.srole;
+        if (srole && sroles[srole]) {
+            sroles[srole].run(creep);
+        }
     }
 }
