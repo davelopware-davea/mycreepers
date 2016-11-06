@@ -12,7 +12,7 @@ var roleHarvester = {
         if (creep.memory.gather) {
             if(creep.carry.energy < creep.carryCapacity) {
                 var source = helper.findClosestRawSource(creep.pos);
-                helper.harvestSource(creep, source);
+                helper.harvestSource(creep, source, 'h');
             } else {
                 creep.memory.gather = false;
                 console.log(creep.name+' switching to replenish storage');
@@ -24,9 +24,9 @@ var roleHarvester = {
             var target = helper.findMyClosestEnergyStoreToFill(creep.pos, 100, null);
             if(target) {
                 console.log(creep.name+' replenishing store '+target.pos);
-                creep.say('*');
+                creep.say('h*');
                 if(creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.say('->*');
+                    creep.say('h->*');
                     creep.moveTo(target);
                     console.log(creep.name+' moving to store '+target.pos+' to replenish it');
                 }

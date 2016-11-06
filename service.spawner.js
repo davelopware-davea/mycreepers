@@ -18,6 +18,9 @@ var serviceSpawner = {
         var firstReplenisher = null;
         var remoteHarvesterCount = 0;
         var roadMaintainCount = 0;
+        var remoteHarvestRemotes = [];
+        var remoteMaintainRemotes = [];
+        var remoteDefenders = [];
         var creeps = Game.creeps;
         for (var cn in creeps) {
             var creep = creeps[cn];
@@ -33,8 +36,15 @@ var serviceSpawner = {
             if (creep.memory.type == 'special') {
                 if (creep.memory.srole == 'remoteharvester') {
                     remoteHarvesterCount++;
+                    var remote = creep.memory.flagRemote;
+                    remoteHarvestRemotes[remote] = remoteHarvestRemotes[remote] !== undefined ? remoteHarvestRemotes[remote] + 1 : 1;
                 } else if (creep.memory.srole == 'roadmaintain') {
                     roadMaintainCount++;
+                    var remote = creep.memory.flagRemote;
+                    remoteMaintainRemotes[remote] = remoteMaintainRemotes[remote] !== undefined ? remoteMaintainRemotes[remote] + 1 : 1;
+                } else if (creep.memory.srole == 'defender') {
+                    var remote = creep.memory.flagRemote;
+                    remoteDefenders[remote] = remoteDefenders[remote] !== undefined ? remoteDefenders[remote] + 1 : 1;
                 }
             }
         }
@@ -44,13 +54,46 @@ var serviceSpawner = {
         if (workerPreferSpawn < 1 && firstReplenisher) {
             firstReplenisher.memory.prefer = STRUCTURE_SPAWN;
         }
-        if (remoteHarvesterCount < 10) {
-            this.spawnNewSpecialRemoteHarvesterCreep();
-        }
-        if (roadMaintainCount < 1) {
-            this.spawnNewSpecialRoadMaintainCreep("Base_1", "drinkhere");
-        }
+        
+        var spawner = this;
 
+        var remoteDefendTargets = {
+            'remote_1':0,
+            'remote_2':0,
+            'remote_3':6
+        };
+        console.log('#################'+JSON.stringify(remoteDefendTargets));
+        _.forEach(remoteDefendTargets, function(target, remote) {
+            console.log(JSON.stringify({t:target,r:remote}));
+            if (remoteDefenders[remote] == undefined || remoteDefenders[remote] < target) {
+                console.log(JSON.stringify({t:'spawning',r:remote}));
+                spawner.spawnNewSpecialDefenderCreep(remote);
+            }
+        });
+
+
+        var remoteHarvestTargets = {
+            'remote_1':5,
+            'remote_2':5//,
+            //'remote_3':0
+        };
+        _.forEach(remoteHarvestTargets, function(target, remote) {
+            console.log(JSON.stringify({t:target,r:remote}));
+            if (remoteHarvestRemotes[remote] == undefined || remoteHarvestRemotes[remote] < target) {
+                console.log(JSON.stringify({t:'spawning',r:remote}));
+                spawner.spawnNewSpecialRemoteHarvesterCreep("Base_1", remote);
+            }
+        });
+        var remoteMaintainTargets = {
+            'remote_1':1,
+            'remote_2':1//,
+            //'remote_3':0
+        };
+        _.forEach(remoteMaintainTargets, function(target, remote) {
+            if (remoteMaintainRemotes[remote] == undefined || remoteMaintainRemotes[remote] < target) {
+                spawner.spawnNewSpecialRoadMaintainCreep("Base_1", remote);
+            }
+        });
     },
 
     spawnNewWorkerCreep: function() {
@@ -80,13 +123,15 @@ var serviceSpawner = {
         }
     },
 
-    spawnNewSpecialRemoteHarvesterCreep: function() {
+    spawnNewSpecialRemoteHarvesterCreep: function(flagBase, flagRemote) {
         console.log('spawning special creeper Remote Harvester');
         var spawn = Game.spawns['Spawn1'];
         var srole = 'remoteharvester';
         var memory = {
             'type': 'special',
-            'srole': srole
+            'srole': srole,
+            'flagBase': flagBase,
+            'flagRemote': flagRemote
         };
         var sroleRemoteHarvester = require('srole.remoteharvester');
         sroleRemoteHarvester.spawn(spawn, memory);
@@ -104,6 +149,19 @@ var serviceSpawner = {
         };
         var sroleRoadMaintain = require('srole.roadmaintain');
         sroleRoadMaintain.spawn(spawn, memory);
+    },
+
+    spawnNewSpecialDefenderCreep: function(flagRemote) {
+        console.log('spawning special creeper Defender');
+        var spawn = Game.spawns['Spawn1'];
+        var srole = 'defender';
+        var memory = {
+            'type': 'special',
+            'srole': srole,
+            'flagRemote': flagRemote
+        };
+        var sroleDefender = require('srole.defender');
+        sroleDefender.spawn(spawn, memory);
     }
 
 };

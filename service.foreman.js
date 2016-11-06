@@ -111,13 +111,13 @@ console.log(JSON.stringify(neededReplenishers));
                 'harvester': 4,
                 'replenisher': 3,
                 'builder': 1,
-                'upgrader': 1
+                'upgrader': 2
             };
         } else if (status.buildingNeeded) {
             needs = {
                 'harvester': 4,
                 'replenisher': 3,
-                'builder': 1,
+                'builder': 2,
                 'upgrader': 1
             };
         } else {
@@ -125,7 +125,7 @@ console.log(JSON.stringify(neededReplenishers));
                 'harvester': 4,
                 'replenisher': 3,
                 'builder': 1,
-                'upgrader': 1
+                'upgrader': 2
             };
         }
         return needs;
@@ -272,6 +272,7 @@ console.log(JSON.stringify(neededReplenishers));
             function() { return helper.findMyClosestConstructable(pos, STRUCTURE_TOWER); },
             function() { return helper.findMyClosestConstructable(pos, STRUCTURE_RAMPART); },
             function() { return helper.findMyClosestConstructable(pos, STRUCTURE_WALL); },
+            function() { return helper.findMyClosestConstructable(pos, STRUCTURE_CONTAINER); },
             function() { return helper.findMyClosestConstructable(pos, STRUCTURE_ROAD); },
             function() { return helper.findMyClosestConstructable(pos, STRUCTURE_STORAGE); }
         ];
@@ -287,7 +288,6 @@ console.log(JSON.stringify(neededReplenishers));
 
         var targetsAdditional = [
             function() { return helper.findMyClosestConstructable(pos, STRUCTURE_STORAGE); },
-            function() { return helper.findMyClosestConstructable(pos, STRUCTURE_CONTAINER); },
             function() { return helper.findMyClosestConstructable(pos); }
         ];
         _.forEach(targetsAdditional, function(finderFn) {

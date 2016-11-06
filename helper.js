@@ -15,7 +15,9 @@ module.exports = {
             var type = creep.memory.type ? ' type='+creep.memory.type : ' type=unknown';
             var role = creep.memory.role ? ' role='+creep.memory.role : ' srole='+creep.memory.srole;
             var prefer = creep.memory.role == 'replenisher' ? ' prefer='+creep.memory.prefer : '';
-            console.log(' '+name+': '+type+role+prefer);
+            var base = creep.memory.flagBase ? ' base='+creep.memory.flagBase : '';
+            var remote = creep.memory.flagRemote ? ' remote='+creep.memory.flagRemote : '';
+            console.log(' '+name+': '+type+role+prefer+base+remote);
         }
     },
     log_structs: function(structs) {
@@ -26,9 +28,10 @@ module.exports = {
         }
     },
 
-    harvestSource: function(creep, source) {
+    harvestSource: function(creep, source, prefix) {
+        prefix = (prefix !== undefined) ? prefix : '?';
         console.log(creep.name+' harvesting '+source.toString()+' '+source.pos);
-        creep.say('+');
+        creep.say(prefix+'+');
         if (this.getEnergyFrom(creep, source) == ERR_NOT_IN_RANGE) {
             // check if we're in a holding pattern
             if (creep.memory.source_holding_pattern && creep.memory.source_holding_pattern > 0) {
@@ -36,7 +39,7 @@ module.exports = {
                 creep.moveTo(holdingFlag);
                 creep.memory.source_holding_pattern = creep.memory.source_holding_pattern - 1;
                 creep.memory.source_waiting_for = 0;
-                creep.say('->X_'+creep.memory.source_holding_pattern);
+                creep.say(prefix+'->X_'+creep.memory.source_holding_pattern);
                 console.log(creep.name+' holding now for '+creep.memory.source_holding_pattern);
 
             } else {
@@ -48,7 +51,7 @@ module.exports = {
                     } else {
                         creep.memory.source_waiting_for = 1;
                     }
-                    creep.say('->+|'+creep.memory.source_waiting_for);
+                    creep.say(prefix+'->+|'+creep.memory.source_waiting_for);
                     console.log(creep.name+' source blocked now for '+creep.memory.source_waiting_for);
                 }
                 if (creep.memory.source_waiting_for > 10) {
@@ -56,7 +59,7 @@ module.exports = {
                     creep.memory.source_holding_pattern = 5;
                     console.log(creep.name+' entering the holding pattern');
                 } else {
-                    creep.say('->+');
+                    creep.say(prefix+'->+');
                     creep.moveTo(source);
                 }
             }
@@ -244,6 +247,98 @@ module.exports = {
             });
         }
         return target;
+    },
+    
+    
+    hack_fix_harvesters: function() {
+        var cnt = 0;
+        for (var name in Game.creeps) {
+            var creep = Game.creeps[name];
+            if (creep.memory.type == 'special' && creep.memory.srole == 'remoteharvester') {
+            // if (creep.memory.type == 'special' && creep.memory.srole == 'roadmaintain') {
+                cnt++;
+                creep.memory.flagBase = 'Base_1';
+                if (cnt <= 8) {
+                    creep.memory.flagRemote = 'remote_1';
+                } else if (cnt > 8 && cnt <= 16) {
+                    creep.memory.flagRemote = 'remote_2';
+                } else if (cnt > 16) {
+                    creep.memory.flagRemote = 'remote_3';
+                }
+                console.log(' '+creep.name+' fixed');
+            } else {
+                console.log(' '+creep.name+' doesn\'t need fixing');
+            }
+        }
+    },
+
+    hack_reroute: function() {
+        var cnt = 0;
+        for (var name in Game.creeps) {
+            var creep = Game.creeps[name];
+            // if (creep.memory.type == 'special' && creep.memory.srole == 'remoteharvester' && creep.memory.flagRemote == 'remote_1' && creep.carry.energy === 0) {
+            if (creep.memory.type == 'special' && creep.memory.flagRemote == 'remote_1' && creep.carry.energy === 0) {
+                creep.moveTo(Game.flags[creep.memory.flagRemote]);
+                console.log(' '+creep.name+' fixed');
+                creep.say('reroute');
+            }
+            // if (creep.memory.type == 'special' && creep.memory.srole == 'remoteharvester' && creep.memory.flagRemote == 'remote_3' && creep.carry.energy === 0) {
+            if (creep.memory.type == 'special' && creep.memory.flagRemote == 'remote_3' && creep.carry.energy === 0) {
+                creep.moveTo(Game.flags[creep.memory.flagRemote]);
+                console.log(' '+creep.name+' fixed');
+                creep.say('reroute');
+            }
+        }
+    },
+    
+    opposite_direction: function(direction) {
+        switch (direction) {
+            case TOP:
+                return BOTTOM;
+            case TOP_RIGHT:
+                return BOTTOM_LEFT;
+            case RIGHT:
+                return LEFT;
+            case BOTTOM_RIGHT:
+                return TOP_LEFT;
+            case BOTTOM:
+                return TOP;
+            case BOTTOM_LEFT:
+                return TOP_RIGHT;
+            case LEFT:
+                return RIGHT;
+            case TOP_LEFT:
+                return BOTTOM_RIGHT;
+        }
+    },
+    away_from_stay_in_room: function(startPos, targetPos, pathCache) {
+        if (pathCache === undefined) {
+            pathCache = startPos.findPathTo(targetPos);
+        }
+        var firstStep = pathCache[0];
+        var directionToTarget = firstStep.direction;
+
+        var closeExists = startPos.findInRange(FIND_EXIT, 2);
+        if (closeExists.length == 0) {
+            return this.opposite_direction(firstStep.direction);
+        } else {
+            var firstExit = closeExists[0];
+            var pathToExit = startPos.findPathTo(firstExit);
+            var directionToExit = pathToExit.direction;
+
+            // directions are numbered 1 to 8 clockwise around the compass
+            // directions 4 apart are opposite
+            var dirDiff = Math.abs(directionToExit - directionToTarget);
+            var dirAvg = Math.round((directionToExit + directionToTarget) / 2);
+            if (dirDiff === 4) {
+                // we're stuck between target and exit - move away from exit!
+                return this.opposite_direction(directionToExit);
+            } else {
+                // move away from the average direction of the target and exit
+                return this.opposite_direction(dirAvg);
+            }
+        }
     }
+
 
 };

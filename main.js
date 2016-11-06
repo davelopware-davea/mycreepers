@@ -27,10 +27,12 @@ var roles = {
     'special': roleSpecial
 };
 
+var sroleDefender = require('srole.defender');
 var sroleRemoteHarvester = require('srole.remoteharvester');
 var sroleRoadMaintain = require('srole.roadmaintain');
 
 var sroles = {
+    'defender': sroleDefender,
     'roadmaintain': sroleRoadMaintain,
     'remoteharvester': sroleRemoteHarvester
 };
@@ -43,7 +45,8 @@ var troles = {
 
 module.exports.loop = function () {
     console.log('Loop ===================================================');
-    
+    // return;
+
     for(var serviceName in services) {
         var service = services[serviceName];
         service.run();
@@ -73,4 +76,7 @@ module.exports.loop = function () {
             sroles[srole].run(creep);
         }
     }
+    
+    // helper.hack_reroute();
+    
 }

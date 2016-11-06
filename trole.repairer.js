@@ -45,21 +45,21 @@ var towerRoleRepairer = {
             function() { return helper.findMyClosestRepairable(pos, STRUCTURE_EXTENSION, 90); },
             function() { return helper.findMyClosestRepairable(pos, STRUCTURE_CONTROLLER, 90); },
             function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 10000); },
-            function() { return helper.findClosestRepairable(pos, STRUCTURE_ROAD, 4000); }
+            function() { return helper.findClosestRepairable(pos, STRUCTURE_ROAD, 4000); },
+            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_RAMPART, 0.1); }
         ];
         var orderAttemptsAdditional = [
-            function() { return helper.findClosestRepairable(pos, STRUCTURE_ROAD, 4100); },
-            function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 20000); },
-            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_RAMPART, 0.1); },
-            function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 30000); },
-            function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 40000); },
-            function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 50000); },
-            function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 60000); },
-            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_RAMPART, 0.2); },
-            function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 100000); },
-            function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 300000); },
-            function() { return helper.findMyClosestRepairable(pos, STRUCTURE_RAMPART, 1); },
-            function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 500000); }
+            function() { return helper.findClosestRepairable(pos, STRUCTURE_ROAD, 4500); },
+            // function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 20000); },
+            // function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 30000); },
+            // function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 40000); },
+            // function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 50000); },
+            // function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 60000); },
+            // function() { return helper.findMyClosestRepairable(pos, STRUCTURE_RAMPART, 0.2); }
+            // function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 100000); },
+            // function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 300000); },
+            // function() { return helper.findMyClosestRepairable(pos, STRUCTURE_RAMPART, 1); },
+            // function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 500000); }
         ];
         var orderIndex = 0;
         while (repairTarget === null && orderIndex < orderAttemptsEssential.length) {

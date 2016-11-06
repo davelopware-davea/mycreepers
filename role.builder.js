@@ -9,38 +9,36 @@ var roleBuilder = {
 
         if(creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
-            creep.say('+');
+            creep.say('b+');
         }
         if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
             creep.memory.building = true;
-            creep.say('&');
+            creep.say('b&');
         }
 
         if(creep.memory.building) {
-            // var repairTarget = null;
-            // repairTarget = foreman.nextThingToRepair(creep.pos, true);
-            // if (repairTarget) {
-            //     console.log(creep.name+' repair '+repairTarget.pos);
-            //     if(creep.repair(repairTarget) == ERR_NOT_IN_RANGE) {
-            //         creep.moveTo(repairTarget);
-            //     }
-            //     return;
-            // }
             var buildTarget = null;
-            buildTarget = foreman.nextThingToBuild(creep.pos, true);
+            buildTarget = foreman.nextThingToBuild(creep.pos, false);
             if (buildTarget) {
                 console.log(creep.name+' build '+buildTarget.pos);
-                creep.say('#');
+                creep.say('b#');
                 if(creep.build(buildTarget) == ERR_NOT_IN_RANGE) {
-                    creep.say('->#');
+                    creep.say('b->#');
                     creep.moveTo(buildTarget);
                 }
                 return;
             }
         }
         else {
-            var sources = creep.room.find(FIND_SOURCES);
-            helper.harvestSource(creep, sources[0]);
+            // var sources = creep.room.find(FIND_SOURCES);
+            // helper.harvestSource(creep, sources[0]);
+            var store = helper.findMyClosestEnergyStoreToUse(creep.pos);
+            if (store !== null) {
+                creep.say('b-load');
+                helper.harvestSource(creep, store, 'b');
+            } else {
+                creep.say('b-HELP Store');
+            }
         }
     }
 };
