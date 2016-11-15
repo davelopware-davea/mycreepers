@@ -50,7 +50,7 @@ var towerRoleRepairer = {
         ];
         var orderAttemptsAdditional = [
             function() { return helper.findClosestRepairable(pos, STRUCTURE_ROAD, 4500); },
-            // function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 20000); },
+            function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 20000); },
             // function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 30000); },
             // function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 40000); },
             // function() { return helper.findClosestRepairable(pos, STRUCTURE_WALL, 50000); },

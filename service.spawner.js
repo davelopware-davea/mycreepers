@@ -74,8 +74,8 @@ var serviceSpawner = {
 
         var remoteHarvestTargets = {
             'remote_1':5,
-            'remote_2':5//,
-            //'remote_3':0
+            'remote_2':5,
+            'remote_3':5
         };
         _.forEach(remoteHarvestTargets, function(target, remote) {
             console.log(JSON.stringify({t:target,r:remote}));
@@ -86,8 +86,8 @@ var serviceSpawner = {
         });
         var remoteMaintainTargets = {
             'remote_1':1,
-            'remote_2':1//,
-            //'remote_3':0
+            'remote_2':1,
+            'remote_3':1
         };
         _.forEach(remoteMaintainTargets, function(target, remote) {
             if (remoteMaintainRemotes[remote] == undefined || remoteMaintainRemotes[remote] < target) {
