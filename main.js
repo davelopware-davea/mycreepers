@@ -30,11 +30,13 @@ var roles = {
 var sroleDefender = require('srole.defender');
 var sroleRemoteHarvester = require('srole.remoteharvester');
 var sroleRoadMaintain = require('srole.roadmaintain');
+var sroleWanderer = require('srole.wanderer');
 
 var sroles = {
     'defender': sroleDefender,
     'roadmaintain': sroleRoadMaintain,
-    'remoteharvester': sroleRemoteHarvester
+    'remoteharvester': sroleRemoteHarvester,
+    'wanderer': sroleWanderer
 };
 
 var troleRepairer = require('trole.repairer');

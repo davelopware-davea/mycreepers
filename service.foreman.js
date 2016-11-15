@@ -108,15 +108,15 @@ console.log(JSON.stringify(neededReplenishers));
 
         if (status.energyNeeded > 0) {
             needs = {
-                'harvester': 4,
+                'harvester': 3,
                 'replenisher': 3,
                 'builder': 1,
                 'upgrader': 2
             };
         } else if (status.buildingNeeded) {
             needs = {
-                'harvester': 4,
-                'replenisher': 3,
+                'harvester': 3,
+                'replenisher':gt 3,
                 'builder': 2,
                 'upgrader': 1
             };

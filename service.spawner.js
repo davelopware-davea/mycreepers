@@ -12,6 +12,12 @@ var serviceForeman = require('service.foreman');
 var serviceSpawner = {
     run: function() {
         // console.log('Spawner ------------------------------------------------');
+        // var sroleWanderer = require('srole.wanderer');
+        // var spawn = Game.spawns['Spawn1'];
+        // var memory = {'type':'special','srole':'wanderer'};
+        // sroleWanderer.spawn(spawn, memory);
+        // return;
+
 
         var workerCount = 0;
         var workerPreferSpawn = 0;
@@ -73,9 +79,9 @@ var serviceSpawner = {
 
 
         var remoteHarvestTargets = {
-            'remote_1':5,
-            'remote_2':5,
-            'remote_3':5
+            'remote_1':3,
+            'remote_2':3,
+            'remote_3':3
         };
         _.forEach(remoteHarvestTargets, function(target, remote) {
             console.log(JSON.stringify({t:target,r:remote}));
@@ -89,6 +95,11 @@ var serviceSpawner = {
             'remote_2':1,
             'remote_3':1
         };
+        _.forEach(remoteMaintainTargets, function(target, remote) {
+            if (remoteMaintainRemotes[remote] == undefined || remoteMaintainRemotes[remote] < target) {
+                spawner.spawnNewSpecialRoadMaintainCreep("Base_1", remote);
+            }
+        });
         _.forEach(remoteMaintainTargets, function(target, remote) {
             if (remoteMaintainRemotes[remote] == undefined || remoteMaintainRemotes[remote] < target) {
                 spawner.spawnNewSpecialRoadMaintainCreep("Base_1", remote);
