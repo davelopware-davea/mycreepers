@@ -56,7 +56,7 @@ module.exports = {
                 }
                 if (creep.memory.source_waiting_for > 10) {
                     creep.memory.source_waiting_for = 0;
-                    creep.memory.source_holding_pattern = 5;
+                    creep.memory.source_holding_pattern = 30;
                     console.log(creep.name+' entering the holding pattern');
                 } else {
                     creep.say(prefix+'->+');
@@ -171,21 +171,22 @@ module.exports = {
     findMyClosestEnergyStoreToUse: function(pos) {
         var helper = this;
         var target = null;
-        if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-            filter: function(s) {
-                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_STORAGE, 100, null);
-            }
-        });
-        if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-            filter: function(s) {
-                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_CONTAINER, 100, null);
-            }
-        });
+        // if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+        //     filter: function(s) {
+        //         return helper.structureTypeAndEnergyBetween(s, STRUCTURE_STORAGE, 100, null);
+        //     }
+        // });
+        // if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+        //     filter: function(s) {
+        //         return helper.structureTypeAndEnergyBetween(s, STRUCTURE_CONTAINER, 100, null);
+        //     }
+        // });
         if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function(s) {
                 return helper.structureTypeAndEnergyBetween(s, STRUCTURE_EXTENSION, 100, null);
             }
         });
+        if (target === null) target = helper.findClosestRawSource(pos);
         return target;
     },
     findClosestRawSource: function(pos) {

@@ -10,6 +10,11 @@
 var helper = require('helper');
 
 var serviceForeman = {
+    setConfig: function(config) {
+        this.config = config;
+        this.spawnNeededRole = undefined;
+    },
+    
     targetCreeperCount: function() {
         var status = this.getStatus();
         var neededRoles = this.determineNeededRoles(status);
@@ -29,47 +34,90 @@ var serviceForeman = {
 
         var defaultRole = this.getDefaultRole(status);
         var neededRoles = this.determineNeededRoles(status);
-// console.log(JSON.stringify(neededRoles));
-        var neededReplenishers = this.determineNeededReplenishers(status);
-console.log(JSON.stringify(neededReplenishers));
+        console.log(JSON.stringify(neededRoles));
 
+        // group the creeps by role
+        var creepsByRole = {};
         for (var name in creeps) {
             var creep = creeps[name];
-            if (creep.memory.type != 'worker') {
-                continue;
-            }
-
-            var neededRole = defaultRole;
-            var neededPrefer = STRUCTURE_TOWER;
-            for (var role in neededRoles) {
-                if (neededRoles[role] > 0) {
-                    neededRole = role;
-                    neededRoles[role] = neededRoles[role] - 1;
-
-                    if (neededRole == 'replenisher') {
-                        for (var prefer in neededReplenishers) {
-                            if (neededReplenishers[prefer] > 0) {
-                                neededPrefer = prefer;
-                                neededReplenishers[prefer] = neededReplenishers[prefer] - 1;
-                                break;
-                            }
-                        }
-                    }
-
-                    break;
+            if (creep.memory.type == 'worker') {
+                var role = creep.memory.role;
+    
+                if ( ! (role in creepsByRole)) {
+                    creepsByRole[role] = [];
                 }
-            }
-
-            if (creep.memory.role != neededRole) {
-                console.log('Turning '+creep.name+' from '+creep.memory.role+' to '+neededRole);
-                creep.memory.role = neededRole;
-                creep.say('=' + neededRole);
-            }
-            if (role == 'replenisher') {
-                creep.memory.prefer = neededPrefer;
-                // creep.memory.prefer = STRUCTURE_TOWER;
+                creepsByRole[role].push(creep);
             }
         }
+        console.log("creepsByRole>"+JSON.stringify(creepsByRole));
+
+        // first figure out what existing creeps we don't need
+        var creepsNotNeeded = [];
+        for (var role in creepsByRole) {
+
+            if (role in neededRoles) {
+                while (creepsByRole[role].length > neededRoles[role]) {
+                    creepsNotNeeded.push(creepsByRole[role].pop());
+                }
+            } else {
+                while (creepsByRole[role].length > 0) {
+                    creepsNotNeeded.push(creepsByRole[role].pop());
+                }
+                delete creepsByRole[role];
+            }
+        }
+        console.log("creepsByRole>"+JSON.stringify(creepsByRole));
+        console.log("creepsNotNeeded>"+JSON.stringify(creepsNotNeeded));
+        
+        // now figure out what creeps we're missing
+        for (var role in neededRoles) {
+// console.log("Aa");
+
+            if (role in creepsByRole) {
+// console.log("Ab " + creepsByRole[role].length + " vs " + neededRoles[role]);
+                while (creepsByRole[role].length < neededRoles[role]) {
+// console.log("Ac "+creepsByRole[role].length);
+                    // we dont have enough - make one
+                    if (creepsNotNeeded.length > 0) {
+// console.log("B");
+                        var unlovedCreep = creepsNotNeeded.pop();
+                        console.log('Turning '+unlovedCreep.name+' from '+unlovedCreep.memory.role+' to '+role);
+                        unlovedCreep.memory.role = role;
+                        unlovedCreep.say('=>' + role);
+                        creepsByRole[role].push(unlovedCreep);
+                    } else {
+// console.log("C "+this.spawnNeededRole);
+                        console.log('Could do with a new ('+role+')')
+                        if (this.spawnNeededRole === undefined) {
+// console.log("D");
+                            this.spawnNeededRole = role;
+                            console.log('First time so set spawnNeededRole ('+role+')')
+                        }
+                        break;
+                    }
+// console.log("E");
+                }
+// console.log("F");
+            } else if (neededRoles[role] > 0) {
+// console.log("G");
+                console.log('Could do with a new ('+role+')')
+                if (this.spawnNeededRole === undefined) {
+// console.log("H");
+                    this.spawnNeededRole = role;
+                    console.log('First time so set spawnNeededRole ('+role+')')
+                }
+// console.log("I");
+                break;
+            }
+// console.log("J");
+        }
+// console.log("K");
+        
+//         _.forEach(creepsNotNeeded, function(creep) {
+// // console.log("L");
+//             console.log('Time to kill off '+creep.name);
+//             creep.suicide();
+//         });
     },
 
     getDefaultRole: function(status) {
@@ -81,52 +129,42 @@ console.log(JSON.stringify(neededReplenishers));
     },
 
     getSpawnNeededRole: function() {
-        var status = this.getStatus();
-        var creeps = Game.creeps;
-
-        var defaultRole = this.getDefaultRole(status);
-        var neededRoles = this.determineNeededRoles(status);
-
-        for (var name in creeps) {
-            var creep = creeps[name];
-            var role = creep.memory.role;
-            if (neededRoles[role] && neededRoles[role] > 0) {
-                neededRoles[role] = neededRoles[role] - 1;
-            }
+        if (this.spawnNeededRole !== undefined) {
+            return this.spawnNeededRole;
+        } else {
+            return 'upgrader';
         }
-        for (var role in neededRoles) {
-            if (neededRoles[role] > 0) {
-                return role;
-            }
-        }
+        // var status = this.getStatus();
+        // var creeps = Game.creeps;
 
-        return 'harvester';
+        // var defaultRole = this.getDefaultRole(status);
+        // var neededRoles = this.determineNeededRoles(status);
+
+        // for (var name in creeps) {
+        //     var creep = creeps[name];
+        //     var role = creep.memory.role;
+        //     if (neededRoles[role] && neededRoles[role] > 0) {
+        //         neededRoles[role] = neededRoles[role] - 1;
+        //     }
+        // }
+        // for (var role in neededRoles) {
+        //     if (neededRoles[role] > 0) {
+        //         return role;
+        //     }
+        // }
+
+        // return 'harvester';
     },
 
     determineNeededRoles: function(status) {
         var needs = {};
 
         if (status.energyNeeded > 0) {
-            needs = {
-                'harvester': 3,
-                'replenisher': 3,
-                'builder': 1,
-                'upgrader': 2
-            };
+            needs = this.config['energyNeeded'];
         } else if (status.buildingNeeded) {
-            needs = {
-                'harvester': 3,
-                'replenisher':gt 3,
-                'builder': 2,
-                'upgrader': 1
-            };
+            needs = this.config['buildingNeeded'];
         } else {
-            needs = {
-                'harvester': 4,
-                'replenisher': 3,
-                'builder': 1,
-                'upgrader': 2
-            };
+            needs = this.config['deault'];
         }
         return needs;
     },

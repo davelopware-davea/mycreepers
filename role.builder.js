@@ -22,7 +22,10 @@ var roleBuilder = {
             if (buildTarget) {
                 console.log(creep.name+' build '+buildTarget.pos);
                 creep.say('b#');
-                if(creep.build(buildTarget) == ERR_NOT_IN_RANGE) {
+                if ( ! creep.pos.inRangeTo(buildTarget, 2)) {
+                    creep.say('b->€');
+                    creep.moveTo(buildTarget);
+                } else if (creep.build(buildTarget) == ERR_NOT_IN_RANGE) {
                     creep.say('b->#');
                     creep.moveTo(buildTarget);
                 }
