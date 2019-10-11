@@ -7,9 +7,51 @@
  * mod.thing == 'a thing'; // true
  */
 
+var defaultSetup = {
+    'services': {
+        'service.foreman': require('service.foreman'),
+        'service.spawner': require('service.spawner')
+    },
+    'roles': {
+        'role.harvester': require('role.harvester'),
+        'role.replenisher': require('role.replenisher'),
+        'role.upgrader': require('role.upgrader'),
+        'role.builder': require('role.builder'),
+        // 'role.special': require('role.special')
+    },
+    'config': {
+        'atlas': {
+            'pause': true,
+        },
+        'service.foreman': {
+            'default': {
+                'harvester': 0,
+                'replenisher': 2,
+                'builder': 3,
+                'upgrader': 2
+            },
+            'energyNeeded': {
+                'harvester': 0,
+                'replenisher': 2,
+                'builder': 3,
+                'upgrader': 2
+            },
+            'buildingNeeded': {
+                'harvester': 0,
+                'replenisher': 2,
+                'builder': 3,
+                'upgrader': 2
+            }
+        }
+    }
+};
+
 var atlas = {
 
     init: function(setup) {
+        if (setup === undefined) {
+            setup = defaultSetup;
+        }
         this.config = setup['config'];
         if (! this.config) this.config = [];
 
@@ -46,6 +88,9 @@ var atlas = {
         console.log(msg);
     },
     loop: function() {
+        if (this.config['atlas']['pause']) {
+            return;
+        }
         console.log('Loop ===================================================');
         // return;
     

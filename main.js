@@ -18,6 +18,9 @@ atlas.init({
         // 'role.special': require('role.special')
     },
     'config': {
+        'atlas': {
+            'pause': true,
+        },
         'service.foreman': {
             'default': {
                 'harvester': 0,
