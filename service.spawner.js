@@ -9,10 +9,13 @@
 
 var serviceSpawner = {
     
-    setForeman: function(foreman) {
-        this.foreman = foreman;
+    init: function(atlas) {
+        this.atlas = atlas;
+        this.config = this.atlas.getConfig('service.spawner');
+        this.foreman = this.atlas.iocService('service.foreman');
+        this.spawnNeededRole = undefined;
     },
-    
+
     run: function() {
         // console.log('Spawner ------------------------------------------------');
         // var sroleWanderer = require('srole.wanderer');

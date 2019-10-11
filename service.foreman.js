@@ -10,11 +10,12 @@
 var helper = require('helper');
 
 var serviceForeman = {
-    setConfig: function(config) {
-        this.config = config;
+    init: function(atlas) {
+        this.atlas = atlas;
+        this.config = this.atlas.config['service.foreman'];
         this.spawnNeededRole = undefined;
     },
-    
+
     targetCreeperCount: function() {
         var status = this.getStatus();
         var neededRoles = this.determineNeededRoles(status);
