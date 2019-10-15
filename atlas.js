@@ -21,26 +21,26 @@ var defaultSetup = {
     },
     'config': {
         'atlas': {
-            'pause': true,
+            'pause': false,
         },
         'service.foreman': {
             'default': {
+                'builder': 0,
+                'upgrader': 3,
                 'harvester': 0,
-                'replenisher': 2,
-                'builder': 3,
-                'upgrader': 2
+                'replenisher': 0
             },
             'energyNeeded': {
+                'builder': 0,
+                'upgrader': 2,
                 'harvester': 0,
-                'replenisher': 2,
-                'builder': 3,
-                'upgrader': 2
+                'replenisher': 0
             },
             'buildingNeeded': {
+                'builder': 0,
+                'upgrader': 2,
                 'harvester': 0,
-                'replenisher': 2,
-                'builder': 3,
-                'upgrader': 2
+                'replenisher': 0
             }
         }
     }
@@ -88,6 +88,7 @@ var atlas = {
         console.log(msg);
     },
     loop: function() {
+        console.log('Loopish '+this.config['atlas']['pause']);
         if (this.config['atlas']['pause']) {
             return;
         }
@@ -100,11 +101,13 @@ var atlas = {
 
         var thisAtlas = this;
         _.forEach(Game.creeps, function(creep) {
+console.log('  >creep '+creep.name+'('+creep.memory.role+')');
             if (creep.memory.type !== 'worker' && creep.memory.type !== 'special') {
                 return;
             }
-            var role = creep.memory.role;
+            var role = 'role.'+creep.memory.role;
             if (role && thisAtlas.roles[role]) {
+console.log('  >creep role run');
                 thisAtlas.roles[role].run(creep);
             }
         });

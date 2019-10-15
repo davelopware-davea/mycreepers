@@ -5,7 +5,8 @@
 
 var atlas = require("atlas");
 
-atlas.init({
+atlas.init(undefined);
+var cfg = {
     'services': {
         'service.foreman': require('service.foreman'),
         'service.spawner': require('service.spawner')
@@ -42,7 +43,7 @@ atlas.init({
             }
         }
     }
-});
+};
 
 
 // var helper = require('helper');

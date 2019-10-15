@@ -27,7 +27,7 @@ var serviceForeman = {
     },
 
     run: function() {
-        // console.log('Foreman ------------------------------------------------');
+        console.log('Foreman ------------------------------------------------');
         this.clearUpCreeperMemory();
 
         var status = this.getStatus();

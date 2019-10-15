@@ -17,7 +17,7 @@ var serviceSpawner = {
     },
 
     run: function() {
-        // console.log('Spawner ------------------------------------------------');
+        console.log('Spawner ------------------------------------------------');
         // var sroleWanderer = require('srole.wanderer');
         // var spawn = Game.spawns['Spawn1'];
         // var memory = {'type':'special','srole':'wanderer'};
@@ -25,12 +25,15 @@ var serviceSpawner = {
         // return;
 
         var spawn = Game.spawns['Spawn1'];
-        if (spawn.energy == spawn.energyCapacity) {
+        // if (spawn.store[RESOURCE_ENERGY] == spawn.store.getCapacity(RESOURCE_ENERGY)) {
             var neededSpawnRole = this.foreman.getSpawnNeededRole();
+            console.log('  enough energy - need a '+neededSpawnRole);
             if (neededSpawnRole !== undefined) {
                 this.spawnNewWorkerCreep(neededSpawnRole);
             }
-        }
+        // } else {
+            // console.log('  not enough energy');
+        // }
         
         return;
 
