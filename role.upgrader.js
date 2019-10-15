@@ -15,7 +15,10 @@ var roleUpgrader = {
 
         if(creep.memory.upgrading) {
             creep.say('u$');
-            if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+            if ( ! creep.pos.inRangeTo(creep.room.controller, 2)) {
+                creep.say('u->€');
+                creep.moveTo(creep.room.controller);
+            } else if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                 creep.say('u->$');
                 creep.moveTo(creep.room.controller);
             }

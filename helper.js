@@ -64,6 +64,7 @@ module.exports = {
                 }
             }
         } else {
+            creep.say(prefix+'+');
             creep.memory.source_waiting_for = undefined;
             creep.memory.source_holding_pattern = undefined;
         }
@@ -183,7 +184,7 @@ module.exports = {
         // });
         if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
             filter: function(s) {
-                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_EXTENSION, 100, null);
+                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_EXTENSION, null, 50);
             }
         });
         if (target === null) target = helper.findClosestRawSource(pos);
