@@ -114,11 +114,11 @@ var serviceForeman = {
         }
 // console.log("K");
         
-//         _.forEach(creepsNotNeeded, function(creep) {
-// // console.log("L");
-//             console.log('Time to kill off '+creep.name);
-//             creep.suicide();
-//         });
+        _.forEach(creepsNotNeeded, function(creep) {
+// console.log("L");
+            console.log('Time to kill off '+creep.name);
+            creep.suicide();
+        });
     },
 
     getDefaultRole: function(status) {
@@ -130,11 +130,12 @@ var serviceForeman = {
     },
 
     getSpawnNeededRole: function() {
-        if (this.spawnNeededRole !== undefined) {
-            return this.spawnNeededRole;
-        } else {
-            return 'upgrader';
-        }
+        return this.spawnNeededRole;
+        // if (this.spawnNeededRole !== undefined) {
+        //     return this.spawnNeededRole;
+        // } else {
+        //     return 'upgrader';
+        // }
         // var status = this.getStatus();
         // var creeps = Game.creeps;
 

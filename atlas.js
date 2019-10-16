@@ -19,28 +19,31 @@ var defaultSetup = {
         'role.builder': require('role.builder'),
         // 'role.special': require('role.special')
     },
+    'structroles': {
+        'tower.repairer': require('trole.repairer'),
+    },
     'config': {
         'atlas': {
             'pause': false,
         },
         'service.foreman': {
             'default': {
-                'builder': 3,
-                'upgrader': 3,
-                'harvester': 3,
-                'replenisher': 0
+                'builder': 2,
+                'upgrader': 2,
+                'harvester': 0,
+                'replenisher': 5
             },
             'energyNeeded': {
-                'builder': 3,
-                'upgrader': 3,
-                'harvester': 3,
-                'replenisher': 0
+                'builder': 2,
+                'upgrader': 2,
+                'harvester': 0,
+                'replenisher': 5
             },
             'buildingNeeded': {
-                'builder': 3,
-                'upgrader': 3,
-                'harvester': 3,
-                'replenisher': 0
+                'builder': 2,
+                'upgrader': 2,
+                'harvester': 0,
+                'replenisher': 5
             }
         }
     }
@@ -60,6 +63,9 @@ var atlas = {
 
         this.roles = setup['roles'];
         if (! this.roles) this.roles = [];
+
+        this.structroles = setup['structroles'];
+        if (! this.structroles) this.structroles = [];
 
         var innerAtlas = this;
 
@@ -111,6 +117,17 @@ console.log('  >creep role run');
                 thisAtlas.roles[role].run(creep);
             }
         });
+        
+        var myStructures = Game.structures;
+        _.forEach(myStructures, function(struct){
+            if (struct.structureType === STRUCTURE_TOWER) {
+                var tower = struct;
+                if (thisAtlas.structroles['tower.repairer'] !== undefined) {
+                    thisAtlas.structroles['tower.repairer'].run(tower);
+                }
+            }
+        });
+
     }
 }
 

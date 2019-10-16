@@ -182,11 +182,11 @@ module.exports = {
         //         return helper.structureTypeAndEnergyBetween(s, STRUCTURE_CONTAINER, 100, null);
         //     }
         // });
-        if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
-            filter: function(s) {
-                return helper.structureTypeAndEnergyBetween(s, STRUCTURE_EXTENSION, null, 50);
-            }
-        });
+        // if (target === null) target = pos.findClosestByRange(FIND_MY_STRUCTURES, {
+        //     filter: function(s) {
+        //         return helper.structureTypeAndEnergyBetween(s, STRUCTURE_EXTENSION, null, 50);
+        //     }
+        // });
         if (target === null) target = helper.findClosestRawSource(pos);
         return target;
     },

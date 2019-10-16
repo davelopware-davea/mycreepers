@@ -28,13 +28,14 @@ var roleHarvester = {
         } else {
             console.log(creep.name+' replenishing');
             var target = null;
+            if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_TOWER, 75, null);
             if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_EXTENSION, 100, null);
+            if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_SPAWN, 100, null);
             if (creep.memory.prefer) {
                 target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, creep.memory.prefer, 100, null);
                 var tname = target ? target.toString() : target;
             }
-            // if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_TOWER, 10, null);
-            // if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_SPAWN, 100, null);
+            if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_TOWER, 100, null);
             // if (target === null) target = helper.findMyClosestRechargeable(Game.flags.Base_1.pos, STRUCTURE_CONTROLLER, 100, null);
 
             if (target !== null) {
