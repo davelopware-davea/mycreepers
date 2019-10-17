@@ -114,11 +114,11 @@ var serviceForeman = {
         }
 // console.log("K");
         
-        _.forEach(creepsNotNeeded, function(creep) {
-// console.log("L");
-            console.log('Time to kill off '+creep.name);
-            creep.suicide();
-        });
+//         _.forEach(creepsNotNeeded, function(creep) {
+// // console.log("L");
+//             console.log('Time to kill off '+creep.name);
+//             creep.suicide();
+//         });
     },
 
     getDefaultRole: function(status) {
