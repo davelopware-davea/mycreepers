@@ -23,22 +23,22 @@ var defaultSetup = {
         },
         'service.foreman': {
             'default': {
-                'upgrader': 1,
-                'harvester': 3,
                 'replenisher': 1,
-                'builder': 2,
+                'upgrader': 1,
+                'harvester': 1,
+                'builder': 1,
             },
             'energyNeeded': {
-                'upgrader': 1,
-                'harvester': 3,
                 'replenisher': 1,
-                'builder': 2,
+                'upgrader': 1,
+                'harvester': 1,
+                'builder': 1,
             },
             'buildingNeeded': {
-                'upgrader': 1,
-                'harvester': 3,
                 'replenisher': 1,
-                'builder': 2,
+                'upgrader': 1,
+                'harvester': 1,
+                'builder': 1,
             }
         }
     }
