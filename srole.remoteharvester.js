@@ -26,7 +26,7 @@ var roleRemoteHarvester = {
                 if (drinkhere === null) {
                     creep.moveTo(drinkhere);
                     return;
-                } else if (helper.getEnergyFrom(creep, drinkhere) == ERR_NOT_IN_RANGE) {
+                } else if (helper.getEnergyFrom(creep, drinkhere, this) == ERR_NOT_IN_RANGE) {
                     creep.say('Rh->+');
                     creep.moveTo(drinkhere);
                 }
@@ -43,13 +43,20 @@ var roleRemoteHarvester = {
                 var target = basePos.findClosestByRange(FIND_MY_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_STORAGE)});
                 // var target = basePos.findClosestByPath(FIND_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_CONTROLLER)});
                 creep.say('Rh@');
-                if (helper.putEnergyInto(creep, target) == ERR_NOT_IN_RANGE) {
+                if (helper.putEnergyInto(creep, target, this) == ERR_NOT_IN_RANGE) {
                     creep.say('Rh->@');
                     creep.moveTo(target.pos);
                 }
             }
         }
+    },
+
+    log: function(msg) {
+        if (this.config['log']) {
+            console.log('SRolRHar:'+msg);
+        }
     }
+
 };
 
 module.exports = roleRemoteHarvester;

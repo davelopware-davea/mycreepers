@@ -22,6 +22,7 @@ var defaultSetup = {
             'pause': false,
         },
         'service.foreman': {
+            'log': false,
             'default': {
                 'replenisher': 1,
                 'upgrader': 1,
@@ -40,6 +41,21 @@ var defaultSetup = {
                 'harvester': 1,
                 'builder': 1,
             }
+        },
+        'service.spawner': {
+            'log': false,
+        },
+        'role.builder': {
+            'log': false,
+        },
+        'role.harvester': {
+            'log': false,
+        },
+        'role.replenisher': {
+            'log': false,
+        },
+        'role.upgrader': {
+            'log': false,
         }
     }
 };
@@ -64,6 +80,9 @@ var atlas = {
 
         var innerAtlas = this;
 
+        _.forEach(this.roles, function(role) {
+            role.init(innerAtlas);
+        });
         _.forEach(this.services, function(service) {
             service.init(innerAtlas);
         });

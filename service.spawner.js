@@ -17,7 +17,7 @@ var serviceSpawner = {
     },
 
     run: function() {
-        console.log('Spawner ------------------------------------------------');
+        this.log('Spawner ------------------------------------------------');
         // var sroleWanderer = require('srole.wanderer');
         // var spawn = Game.spawns['Spawn1'];
         // var memory = {'type':'special','srole':'wanderer'};
@@ -27,12 +27,12 @@ var serviceSpawner = {
         var spawn = Game.spawns['Spawn1'];
         // if (spawn.store[RESOURCE_ENERGY] == spawn.store.getCapacity(RESOURCE_ENERGY)) {
             var neededSpawnRole = this.foreman.getSpawnNeededRole();
-            console.log('  enough energy - need a '+neededSpawnRole);
+            this.log('  enough energy - need a '+neededSpawnRole);
             if (neededSpawnRole !== undefined) {
                 this.spawnNewWorkerCreep(neededSpawnRole);
             }
         // } else {
-            // console.log('  not enough energy');
+            // this.log('  not enough energy');
         // }
         
         return;
@@ -126,7 +126,7 @@ var serviceSpawner = {
     },
 
     spawnNewWorkerCreep: function(role) {
-        console.log('spawning worker creeper ('+role+')');
+        this.log('spawning worker creeper ('+role+')');
         var spawn = Game.spawns['Spawn1'];
         // var role = this.foreman.getSpawnNeededRole();
         var memory = {
@@ -140,20 +140,20 @@ var serviceSpawner = {
         ];
         for (var idx in spawnBodyOrder) {
             var body = spawnBodyOrder[idx];
-            console.log('trying to spawn:'+JSON.stringify(body));
+            this.log('trying to spawn:'+JSON.stringify(body));
             var canCreate = spawn.canCreateCreep(body, undefined, memory);
             if (canCreate === OK) {
-                console.log('spawning...');
+                this.log('spawning...');
                 spawn.createCreep(body, undefined, memory);
                 return;
             } else {
-                console.log('can\'t create '+canCreate);
+                this.log('can\'t create '+canCreate);
             }
         }
     },
 
     spawnNewSpecialRemoteHarvesterCreep: function(flagBase, flagRemote) {
-        console.log('spawning special creeper Remote Harvester');
+        this.log('spawning special creeper Remote Harvester');
         var spawn = Game.spawns['Spawn1'];
         var srole = 'remoteharvester';
         var memory = {
@@ -167,7 +167,7 @@ var serviceSpawner = {
     },
 
     spawnNewSpecialRoadMaintainCreep: function(flagBase, flagRemote) {
-        console.log('spawning special creeper Road Maintainer');
+        this.log('spawning special creeper Road Maintainer');
         var spawn = Game.spawns['Spawn1'];
         var srole = 'roadmaintain';
         var memory = {
@@ -181,7 +181,7 @@ var serviceSpawner = {
     },
 
     spawnNewSpecialDefenderCreep: function(flagRemote) {
-        console.log('spawning special creeper Defender');
+        this.log('spawning special creeper Defender');
         var spawn = Game.spawns['Spawn1'];
         var srole = 'defender';
         var memory = {
@@ -191,8 +191,13 @@ var serviceSpawner = {
         };
         var sroleDefender = require('srole.defender');
         sroleDefender.spawn(spawn, memory);
-    }
+    },
 
+    log: function(msg) {
+        if (this.config['log']) {
+            console.log('SvcSpn:'+msg);
+        }
+    }
 };
 
 module.exports = serviceSpawner;

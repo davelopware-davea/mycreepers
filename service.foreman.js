@@ -27,7 +27,7 @@ var serviceForeman = {
     },
 
     run: function() {
-        console.log('Foreman ------------------------------------------------');
+        this.log('Foreman ------------------------------------------------');
         this.clearUpCreeperMemory();
 
         var status = this.getStatus();
@@ -35,7 +35,7 @@ var serviceForeman = {
 
         var defaultRole = this.getDefaultRole(status);
         var neededRoles = this.determineNeededRoles(status);
-        console.log(JSON.stringify(neededRoles));
+        this.log(JSON.stringify(neededRoles));
 
         // group the creeps by role
         var creepsByRole = {};
@@ -50,7 +50,7 @@ var serviceForeman = {
                 creepsByRole[role].push(creep);
             }
         }
-        console.log("creepsByRole>"+JSON.stringify(creepsByRole));
+        this.log("creepsByRole>"+JSON.stringify(creepsByRole));
 
         // first figure out what existing creeps we don't need
         var creepsNotNeeded = [];
@@ -67,56 +67,56 @@ var serviceForeman = {
                 delete creepsByRole[role];
             }
         }
-        console.log("creepsByRole>"+JSON.stringify(creepsByRole));
-        console.log("creepsNotNeeded>"+JSON.stringify(creepsNotNeeded));
+        this.log("creepsByRole>"+JSON.stringify(creepsByRole));
+        this.log("creepsNotNeeded>"+JSON.stringify(creepsNotNeeded));
         
         // now figure out what creeps we're missing
         for (var role in neededRoles) {
-// console.log("Aa");
+// this.log("Aa");
 
             if (role in creepsByRole) {
-// console.log("Ab " + creepsByRole[role].length + " vs " + neededRoles[role]);
+// this.log("Ab " + creepsByRole[role].length + " vs " + neededRoles[role]);
                 while (creepsByRole[role].length < neededRoles[role]) {
-// console.log("Ac "+creepsByRole[role].length);
+// this.log("Ac "+creepsByRole[role].length);
                     // we dont have enough - make one
                     if (creepsNotNeeded.length > 0) {
-// console.log("B");
+// this.log("B");
                         var unlovedCreep = creepsNotNeeded.pop();
-                        console.log('Turning '+unlovedCreep.name+' from '+unlovedCreep.memory.role+' to '+role);
+                        this.log('Turning '+unlovedCreep.name+' from '+unlovedCreep.memory.role+' to '+role);
                         unlovedCreep.memory.role = role;
                         unlovedCreep.say('=>' + role);
                         creepsByRole[role].push(unlovedCreep);
                     } else {
-// console.log("C "+this.spawnNeededRole);
-                        console.log('Could do with a new ('+role+')')
+// this.log("C "+this.spawnNeededRole);
+                        this.log('Could do with a new ('+role+')')
                         if (this.spawnNeededRole === undefined) {
-// console.log("D");
+// this.log("D");
                             this.spawnNeededRole = role;
-                            console.log('First time so set spawnNeededRole ('+role+')')
+                            this.log('First time so set spawnNeededRole ('+role+')')
                         }
                         break;
                     }
-// console.log("E");
+// this.log("E");
                 }
-// console.log("F");
+// this.log("F");
             } else if (neededRoles[role] > 0) {
-// console.log("G");
-                console.log('Could do with a new ('+role+')')
+// this.log("G");
+                this.log('Could do with a new ('+role+')')
                 if (this.spawnNeededRole === undefined) {
-// console.log("H");
+// this.log("H");
                     this.spawnNeededRole = role;
-                    console.log('First time so set spawnNeededRole ('+role+')')
+                    this.log('First time so set spawnNeededRole ('+role+')')
                 }
-// console.log("I");
+// this.log("I");
                 break;
             }
-// console.log("J");
+// this.log("J");
         }
-// console.log("K");
+// this.log("K");
         
 //         _.forEach(creepsNotNeeded, function(creep) {
-// // console.log("L");
-//             console.log('Time to kill off '+creep.name);
+// // this.log("L");
+//             this.log('Time to kill off '+creep.name);
 //             creep.suicide();
 //         });
     },
@@ -349,8 +349,13 @@ var serviceForeman = {
             }
 
         }
-    }
+    },
 
+    log: function(msg) {
+        if (this.config['log']) {
+            this.log('SvcFrm:'+msg);
+        }
+    }
 };
 
 module.exports = serviceForeman;

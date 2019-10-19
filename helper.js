@@ -23,11 +23,11 @@ module.exports = {
         }
     },
 
-    harvestSource: function(creep, source, prefix) {
+    harvestSource: function(creep, source, prefix, role) {
         prefix = (prefix !== undefined) ? prefix : '?';
-        console.log(creep.name+' harvesting '+source.toString()+' '+source.pos);
+        role.log(creep.name+' harvesting '+source.toString()+' '+source.pos);
         creep.say(prefix+'+');
-        if (this.getEnergyFrom(creep, source) == ERR_NOT_IN_RANGE) {
+        if (this.getEnergyFrom(creep, source, role) == ERR_NOT_IN_RANGE) {
             // check if we're in a holding pattern
             if (creep.memory.source_holding_pattern && creep.memory.source_holding_pattern > 0) {
                 var holdingFlag = Game.flags['SourceHoldingPattern'];
@@ -35,7 +35,7 @@ module.exports = {
                 creep.memory.source_holding_pattern = creep.memory.source_holding_pattern - 1;
                 creep.memory.source_waiting_for = 0;
                 creep.say(prefix+'->X_'+creep.memory.source_holding_pattern);
-                console.log(creep.name+' holding now for '+creep.memory.source_holding_pattern);
+                role.log(creep.name+' holding now for '+creep.memory.source_holding_pattern);
 
             } else {
                 // check if we're blocking the source
@@ -47,12 +47,12 @@ module.exports = {
                         creep.memory.source_waiting_for = 1;
                     }
                     creep.say(prefix+'->+|'+creep.memory.source_waiting_for);
-                    console.log(creep.name+' source blocked now for '+creep.memory.source_waiting_for);
+                    role.log(creep.name+' source blocked now for '+creep.memory.source_waiting_for);
                 }
                 if (creep.memory.source_waiting_for > 10) {
                     creep.memory.source_waiting_for = 0;
                     creep.memory.source_holding_pattern = 30;
-                    console.log(creep.name+' entering the holding pattern');
+                    role.log(creep.name+' entering the holding pattern');
                 } else {
                     creep.say(prefix+'->+');
                     creep.moveTo(source);
@@ -64,8 +64,8 @@ module.exports = {
             creep.memory.source_holding_pattern = undefined;
         }
     },
-    getEnergyFrom: function(creep, struct) {
-        console.log(creep.name+' getting energy from '+struct.toString()+' '+struct.pos);
+    getEnergyFrom: function(creep, struct, role) {
+        role.log(creep.name+' getting energy from '+struct.toString()+' '+struct.pos);
         if (struct instanceof Source) {
             return creep.harvest(struct);
         }
@@ -76,8 +76,8 @@ module.exports = {
             return creep.withdraw(struct, RESOURCE_ENERGY);
         }
     },
-    putEnergyInto: function(creep, target) {
-        console.log(creep.name+' putting energy into '+target.toString()+' '+target.pos);
+    putEnergyInto: function(creep, target, role) {
+        role.log(creep.name+' putting energy into '+target.toString()+' '+target.pos);
         if (target.structureType === STRUCTURE_CONTROLLER) {
             return creep.upgradeController(target);
         }
@@ -105,10 +105,12 @@ module.exports = {
             if (energyPercentageBelow !== null &&
                 ((struct.store[RESOURCE_ENERGY] * 100 / struct.store.getCapacity()) >= energyPercentageBelow)
             ) {
+                // console.log('X failed :'+struct.store[RESOURCE_ENERGY]+' : '+struct.store.getCapacity() + ' vs '+energyPercentageBelow);
                 return false;
             } else if (energyPercentageAbove !== null &&
                 ((struct.store[RESOURCE_ENERGY] * 100 / struct.store.getCapacity()) <= energyPercentageAbove)
             ) {
+                // console.log('Y failed :'+struct.store[RESOURCE_ENERGY]+' : '+struct.store.getCapacity() + ' vs '+energyPercentageAbove);
                 return false;
             }
             return true;

@@ -2,6 +2,11 @@ var serviceCodex = require('service.codex');
 
 var roleSpecial = {
 
+    init: function(atlas) {
+        this.atlas = atlas;
+        //this.config = this.atlas.config['role.special'];
+    },
+
     /** @param {Creep} creep **/
     run: function(creep) {
         if (creep.memory.mission == undefined || creep.memory.mission == 'discover') {
