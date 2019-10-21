@@ -116,7 +116,7 @@ var serviceForeman = {
         
 //         _.forEach(creepsNotNeeded, function(creep) {
 // // this.log("L");
-//             this.log('Time to kill off '+creep.name);
+//             console.log('Time to kill off '+creep.name);
 //             creep.suicide();
 //         });
     },

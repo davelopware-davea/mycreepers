@@ -5,7 +5,7 @@ var roleHarvester = {
 
     init: function(atlas) {
         this.atlas = atlas;
-        this.config = this.atlas.config['role.harvester'];
+        this.config = this.atlas.config['role.replenisher'];
     },
 
     /** @param {Creep} creep **/

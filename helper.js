@@ -105,12 +105,13 @@ module.exports = {
             if (energyPercentageBelow !== null &&
                 ((struct.store[RESOURCE_ENERGY] * 100 / struct.store.getCapacity()) >= energyPercentageBelow)
             ) {
-                // console.log('X failed :'+struct.store[RESOURCE_ENERGY]+' : '+struct.store.getCapacity() + ' vs '+energyPercentageBelow);
+                console.log('X failed ['+struct.store[RESOURCE_ENERGY]+'] : ['+struct.store.getCapacity() + '] vs '+energyPercentageBelow);
+                console.log('XX failed ['+struct.energy+'] : ['+struct.store.getCapacity() + '] vs '+energyPercentageBelow);
                 return false;
             } else if (energyPercentageAbove !== null &&
                 ((struct.store[RESOURCE_ENERGY] * 100 / struct.store.getCapacity()) <= energyPercentageAbove)
             ) {
-                // console.log('Y failed :'+struct.store[RESOURCE_ENERGY]+' : '+struct.store.getCapacity() + ' vs '+energyPercentageAbove);
+                console.log('Y failed :'+struct.store[RESOURCE_ENERGY]+' : '+struct.store.getCapacity() + ' vs '+energyPercentageAbove);
                 return false;
             }
             return true;

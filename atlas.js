@@ -24,22 +24,22 @@ var defaultSetup = {
         'service.foreman': {
             'log': false,
             'default': {
-                'replenisher': 1,
-                'upgrader': 1,
-                'harvester': 1,
+                'upgrader': 2,
                 'builder': 1,
+                'replenisher': 2,
+                'harvester': 1,
             },
             'energyNeeded': {
-                'replenisher': 1,
-                'upgrader': 1,
-                'harvester': 1,
+                'upgrader': 2,
                 'builder': 1,
+                'replenisher': 2,
+                'harvester': 1,
             },
             'buildingNeeded': {
-                'replenisher': 1,
-                'upgrader': 1,
-                'harvester': 1,
+                'upgrader': 2,
                 'builder': 1,
+                'replenisher': 2,
+                'harvester': 1,
             }
         },
         'service.spawner': {
@@ -52,7 +52,7 @@ var defaultSetup = {
             'log': false,
         },
         'role.replenisher': {
-            'log': false,
+            'log': true,
         },
         'role.upgrader': {
             'log': false,
